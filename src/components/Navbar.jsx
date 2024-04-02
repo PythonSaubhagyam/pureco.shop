@@ -248,6 +248,7 @@ export default function Navbar() {
   const [openSubSections, setOpenSubSections] = useState([]);
   const [megaCategories, setMegaCategories] = useState([]);
   const [megaSubCategories, setMegaSubCategories] = useState([]);
+  const [nestedCategories , setNestedCategories] = useState([])
   const [all, setAll] = useState(false);
 
   const [Open1, setOpen1] = useState(false);
@@ -263,6 +264,9 @@ export default function Navbar() {
   };
   const handleShow1 = (data) => {
     setMegaSubCategories(data);
+  };
+  const handleShow2 = (data) => {
+    setNestedCategories(data);
   };
 
   useEffect(() => {
@@ -1114,11 +1118,11 @@ export default function Navbar() {
                     as={Grid}
                     width={500}
                     //height={400}
-                    templateColumns="repeat(5, 1fr)"
+                    templateColumns="repeat(9, 1fr)"
                     onMouseLeave={handleClose1}
                     zIndex={9999}
                   >
-                    <GridItem colSpan={2} overflow="auto">
+                    <GridItem colSpan={3} overflow="auto">
                       {megaCategories?.map((section, index) => (
                         <>
                           <MenuItem
@@ -1150,6 +1154,24 @@ export default function Navbar() {
                         <MenuItem
                           fontSize={"14"}
                           key={subIndex}
+                          onClick={() => navigate(`/shop?category=${item.id}`)}
+                          onMouseEnter={() => handleShow2(item.children)}
+                          sx={{
+                            "&:hover": {
+                              backgroundColor: "brand.500",
+                              color: "white",
+                            },
+                          }}
+                        >
+                          {item?.name}
+                        </MenuItem>
+                      ))}
+                    </GridItem>
+                    <GridItem colSpan={3} overflow="auto">
+                      {nestedCategories?.map((item, nestedIndex) => (
+                        <MenuItem
+                          fontSize={"14"}
+                          key={nestedIndex}
                           onClick={() => navigate(`/shop?category=${item.id}`)}
                           sx={{
                             "&:hover": {

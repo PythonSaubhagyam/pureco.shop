@@ -648,7 +648,7 @@ export default function Home() {
 
         <Container maxW={"5xl"} mt={5}>
           <Image
-            src="https://www.pureco.shop/web/image/887231/icon_sose.png"
+            src="./Pureco/Home/pureco.jpg"
             alt="imag"
           />
         </Container>
