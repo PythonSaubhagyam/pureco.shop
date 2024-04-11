@@ -85,14 +85,19 @@ export default function Footer() {
 
             {/* <SimpleGrid columns={{ base: 1, md: 3 }}> */}
             <Stack color="text.300">
-              <Stack
-                ml={{ md: "50%" }}
-                align={{ md: "flex-start", base: "center" }}
-              >
+              <Stack ml={{ md: "50%" }}>
                 <ListHeader style={{ color: "text.500" }}>
                   Quick Links
                 </ListHeader>
               </Stack>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/"}
+              >
+                Home
+              </Link>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
@@ -121,33 +126,17 @@ export default function Footer() {
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 as={RouterLink}
-                to={"/organic-living"}
+                to={"/store-locator"}
               >
-                Organic Living
+                Store Locator
               </Link>
               <Link
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 as={RouterLink}
-                to={"/resources"}
+                to={"/contact-us"}
               >
-                Resources
-              </Link>
-              <Link
-                textDecoration="none"
-                _hover={{ color: "text.500" }}
-                as={RouterLink}
-                to={"/appreciation"}
-              >
-                Appreciation
-              </Link>
-              <Link
-                textDecoration="none"
-                _hover={{ color: "text.500" }}
-                as={RouterLink}
-                to={"/testimonials"}
-              >
-                Testimonials
+                Contact Us
               </Link>
             </Stack>
             <Stack align={"flex-start"} color="text.300">
@@ -169,143 +158,54 @@ export default function Footer() {
                 Contact Us
               </Link> */}
 
-              <>
-                {isMobiles ? (
-                  <>
-                    <Grid
-                      align={"flex"}
-                      position={"absolute"}
-                      marginTop={"-220px"}
-                      marginLeft={"140px"}
-                      flexDirection={"column"}
-                    >
-                      {!isMobile && <ListHeader>&nbsp;</ListHeader>}
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/store-locator"}
-                      >
-                        Store Locate
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/contact-us"}
-                      >
-                        Contact Us
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/faq"}
-                      >
-                        FAQ
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/terms-and-conditions"}
-                      >
-                        Terms & Conditions
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/shipping-policy"}
-                      >
-                        Shipping Policy
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/return-and-refund-policy"}
-                      >
-                        Return & Refund Policy
-                      </Link>
-                      <Link
-                        textDecoration="none"
-                        _hover={{ color: "text.500" }}
-                        as={RouterLink}
-                        marginTop={2}
-                        to={"/inspire-and-support"}
-                      >
-                        Inspire & Support
-                      </Link>
-                    </Grid>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/store-locator"}
-                    >
-                      Store Locator
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/contact-us"}
-                    >
-                      Contact Us
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/faq"}
-                    >
-                      FAQ
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/terms-and-conditions"}
-                    >
-                      Terms & Conditions
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/shipping-policy"}
-                    >
-                      Shipping Policy
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/return-and-refund-policy"}
-                    >
-                      Return & Refund Policy
-                    </Link>
-                    <Link
-                      textDecoration="none"
-                      _hover={{ color: "text.500" }}
-                      as={RouterLink}
-                      to={"/inspire-and-support"}
-                    >
-                      Inspire & Support
-                    </Link>
-                  </>
-                )}
-              </>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/faq"}
+              >
+                FAQ
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/terms-and-conditions"}
+              >
+                Terms & Conditions
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/shipping-policy"}
+              >
+                Shipping Policy
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/return-and-refund-policy"}
+              >
+                Return & Refund Policy
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/inspire-and-support"}
+              >
+                Inspire & Support
+              </Link>
+              <Link
+                textDecoration="none"
+                _hover={{ color: "text.500" }}
+                as={RouterLink}
+                to={"/privacy-policy"}
+              >
+                Privacy Policy
+              </Link>
             </Stack>
             {/* </SimpleGrid> */}
             {/* </Stack> */}
