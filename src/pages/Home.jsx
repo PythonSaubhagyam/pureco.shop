@@ -361,35 +361,35 @@ export default function Home() {
   }
 
   const new_arrival_gir_gauveda = [
-    {
-      image1: "./Pureco/Home/Pureco Disposable 3 C.P.jpg",
-      src: "disposable",
-      name: "Disposable Square Plate",
-      id:1749
-    },
+    // {
+    //   image1: "./Pureco/Home/Pureco Disposable 3 C.P.jpg",
+    //   src: "disposable",
+    //   name: "Disposable Square Plate",
+    //   id: 1749,
+    // },
     {
       image1: "./Pureco/Home/wood comb.jpg",
       src: "disposable",
       name: "Neem Wood Comb",
-      id:1757
+      id: 1757,
     },
     {
       image1: "./Pureco/Home/wood comb handle.jpg",
       src: "Wood Comb",
       name: "Neem Wood Comb - Handle",
-      id:1756
+      id: 1756,
     },
     {
       image1: "./Pureco/Home/Pureco Neem Wood Tooth Brush (1 pcs).jpg",
       src: "Toothbrush",
       name: "Neem Wood Toothbrush",
-      id:1761
+      id: 1761,
     },
     {
       image1: "./Pureco/Home/Bamboo_Tooth_Brush.jpg",
       src: "Tooth Brush",
       name: "Bamboo Tooth Brush",
-      id:1755
+      id: 1755,
     },
   ];
 
@@ -429,16 +429,22 @@ export default function Home() {
         />
       </Container>
 
-      <Container maxW={"3xl"} centerContent w="25%" mt={10}>
-        <Image
-          src="https://www.pureco.shop/web/image/321079/about%20Pureco.png"
-          alt=""
-        />
-      </Container>
+     
       <Container maxW={"container.xl"} mb={8} mt={2} px={0}>
+      <Text
+          fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+          fontWeight={500}
+          bgColor={"bg.500"}
+          textAlign={{ base: "center", md: "start" }}
+          px={{ base: 2, md: 8 }}
+          py={4}
+          my={7}
+        >
+          About Pureco
+        </Text>
         <Text
           color={"text.300"}
-          textAlign={"center"}
+          textAlign={"justify"}
           justifyContent={"justify"}
           px={{ base: 15, lg: 20 }}
           mt={12}
@@ -446,12 +452,11 @@ export default function Home() {
         >
           PURECO draws inspiration from Bansi GIR Gaushala, and its work towards
           reviving Bharat’s ancient “Gau Sanskriti”. We believe ancient Bharat{" "}
-          <br /> holds the solution to many of the challenges facing humanity
-          today. The daily essential materials have been produced in PURECO
-          using bamboo <br />
-          and neem wood.PURECO produces toothbrushes from bamboo and neem wood
-          Baby Spoon , Comb- Regular, Comb- Without handle, Cooking <br /> Ladle
-          - Compact Flip, fork spoon, spoon, large cake serve.
+          holds the solution to many of the challenges facing humanity today.
+          The daily essential materials have been produced in PURECO using
+          bamboo and neem wood.PURECO produces toothbrushes from bamboo and neem
+          wood Baby Spoon , Comb- Regular, Comb- Without handle, Cooking Ladle -
+          Compact Flip, fork spoon, spoon, large cake serve.
         </Text>
       </Container>
       <Container centerContent>
@@ -471,8 +476,7 @@ export default function Home() {
 
       <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
         <LazyLoadImage
-          src={
-            "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/03.jpg"
+          src={ "./Pureco/Home/pureco_certificate.jpg"
           }
           alt=""
           style={{
@@ -481,37 +485,9 @@ export default function Home() {
           }}
         />
       </Container>
-      <Container maxW={"container.xl"} centerContent w="25%" mt={10}>
-        <Image
-          src="https://www.pureco.shop/web/image/320940/new%20arrival.png"
-          alt=""
-        />
-      </Container>
-
-      <Container maxW={"6xl"} centerContent mt={10}>
-        <Image
-          src="https://www.pureco.shop/web/image/321029/bamboo%20brush.png"
-          alt=""
-          onClick={() => {
-            navigate(`/products/1755`),
-              window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "smooth",
-              });
-          }}
-          cursor={"pointer"}
-        />
-      </Container>
-
-      <Container maxW={"3xl"} centerContent w="25%" mt={10}>
-        <Image
-          src="https://www.pureco.shop/web/image/321023/other%20product.png"
-          alt=""
-        />
-      </Container>
+     
       <ProductListSection
-        // title="New Arrival Gir Gauveda"
+         title="Must Try: PURECO Products"
         loading={loading}
         //image={new_arrival_gir_gauveda.image1}
         products={new_arrival_gir_gauveda}
@@ -544,7 +520,7 @@ export default function Home() {
         />
       </Container>
 
-      <Container maxW={"6xl"} py={2}>
+      <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
         <SimpleGrid
           columns={[2, 3, null, 4]}
           px={6}
@@ -590,7 +566,7 @@ export default function Home() {
           </Stat> */}
         </SimpleGrid>
       </Container>
-      <Container maxW={{ base: "100vw", md: "container.xl" }}>
+      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
         <Box
           w="100%"
           // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
@@ -598,21 +574,20 @@ export default function Home() {
           backgroundPosition="50% 100%"
           backgroundRepeat={"no-repeat"}
         >
-          <Text
-            color="brand.400"
-            fontSize={{ base: 18, md: 24, lg: 32 }}
+          <Heading
+            color="brand.500"
+            fontSize={{ md: 33, base: 22 }}
             mx="auto"
             align={"center"}
-            mt={3}
-            pb={"10px"}
+            my={3}
           >
-            Awards & Certificates
-          </Text>
+            AWARDS & CERTIFICATES
+          </Heading>
         </Box>
-        <Text my={1} textAlign={"center"} color="text.300">
+        <Text mb={3} textAlign={"center"} color="text.300">
           <b>
             {" "}
-            We are committed to quality and each of our facility is
+            We are committed to quality and each of our facilities is
             independently certified by an industry-accredited agency.
           </b>
         </Text>
@@ -647,10 +622,7 @@ export default function Home() {
         </Flex>
 
         <Container maxW={"5xl"} mt={5}>
-          <Image
-            src="./Pureco/Home/pureco.jpg"
-            alt="imag"
-          />
+          <Image src="./Pureco/Home/pureco.jpg" alt="imag" />
         </Container>
         <Box
           w="100%"
@@ -659,16 +631,16 @@ export default function Home() {
           backgroundPosition="50% 100%"
           backgroundRepeat={"no-repeat"}
         >
-          <Text
-            color="brand.400"
-            fontSize={{ base: 18, md: 24, lg: 32 }}
+          <Heading
+            color="brand.500"
+            fontSize={{ md: 33, base: 22 }}
             mx="auto"
             align={"center"}
-            mt={{ base: 2, md: 6, lg: 10 }}
-            pb={"10px"}
+            mt={8}
+            mb={3}
           >
-            Serving to the Countries
-          </Text>
+            OUR SERVICES ARE AVAILABLE IN
+          </Heading>
         </Box>
         <Box display={"flex"} justifyContent={"center"}>
           <LazyLoadImage
@@ -691,23 +663,22 @@ export default function Home() {
           backgroundPosition="50% 100%"
           backgroundRepeat={"no-repeat"}
         >
-          <Text
-            color="brand.400"
-            fontSize={{ base: 16, md: 22, lg: 30 }}
+          <Heading
+            color="brand.500"
+            fontSize={{ md: 33, base: 22 }}
             mx="auto"
             align={"center"}
-            my={"5"}
-            pb={"10px"}
+            my={3}
           >
             AVAILABLE AT
-          </Text>
+          </Heading>
         </Box>
         <Container maxW={"container.xl"} mb={5} px={0} centerContent>
           <Image
             src={
               "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/01.jpg"
             }
-            w={"container.xl"}
+            w={"100%"}
             alt=""
             style={{
               opacity: 1,

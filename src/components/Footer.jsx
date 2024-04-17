@@ -55,8 +55,7 @@ export default function Footer() {
             fontSize={{ base: "sm", lg: "md" }}
             className="scrolling-text"
           >
-            For Deliveries in America, Canada, Europe, UAE, Singapore, etc Email
-            us on
+            For deliveries in the USA, UAE, UK, Singapore, Canada and Australia email us at {" "}
             <Link
               target="_blank"
               href="mailto:export@suryanorganic.com"
@@ -65,7 +64,7 @@ export default function Footer() {
             >
               export@suryanorganic.com
             </Link>{" "}
-            or Whatsapp on{" "}
+            or WhatsApp us at{" "}
             <Link
               target="_blank"
               href="https://wa.me/+916354800089?text=Hello%2C%20this%20is%20a%20test%20message"
@@ -267,8 +266,8 @@ export default function Footer() {
                 </Flex>
               </Stack> */}
             {/* </Stack> */}
-            <Stack color="text.300" mt={{ md: 3 }}>
-              <Stack align={{ md: "flex-start", base: "center" }}>
+            <Stack color="text.300" mt={{ md: 3,base:4 }}>
+              <Stack >
                 <ListHeader gap={"3"}>Customer Support</ListHeader>
               </Stack>
               <Link
@@ -277,6 +276,7 @@ export default function Footer() {
                 target="_blank"
                 href={"tel:917405095969"}
                 display={"flex"}
+                alignItems={"center"}
                 flexDirection={"row"}
               >
                 <FaPhoneAlt
@@ -292,7 +292,7 @@ export default function Footer() {
                 textDecoration="none"
                 _hover={{ color: "text.500" }}
                 target="_blank"
-                // alignItems={"center"}
+                alignItems={"center"}
                 href={"mailto:care@suryanorganic.com"}
               >
                 <IoMail
@@ -303,7 +303,7 @@ export default function Footer() {
                 care@suryanorganic.com
               </Link>
             </Stack>
-            <Stack align={"center"} mt={{ md: 3 }}>
+            <Stack mt={{ md: 3,base:4 }}>
               {/* <ListHeader align={"flex-start"}>Talk To Our Vaidya</ListHeader>
               <Link
                 textDecoration="none"
@@ -333,9 +333,10 @@ export default function Footer() {
 
             <Stack align={"flex-start"} gap={"3"} ml={{ lg: 10 }} color="brand.900"> */}
               <ListHeader align={"flex-start"} marginBottom={5}>
-                We Accepts Payments via
+              We accept payments via
               </ListHeader>
               <Image
+                ml={"-15px"}
                 src={
                   "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/footer/payment method.png hnghngh.png"
                 }

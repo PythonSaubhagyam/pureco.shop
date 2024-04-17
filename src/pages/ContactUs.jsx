@@ -14,6 +14,8 @@ import {
   Button,
   useToast,
   Box,
+  Image,
+  useBreakpointValue
 } from "@chakra-ui/react";
 import client from "../setup/axiosClient";
 import { AsyncSelect } from "chakra-react-select";
@@ -31,7 +33,7 @@ export default function ContactUs() {
     inquiry_description: "",
     age_group: "00 to 06",
   });
-
+  const width = useBreakpointValue({md:"340px",base:"300px"})
   const [formData, setFormData] = useState(initialFormData);
   const [countries, setCountries] = useState([]);
   const [callingCode, setCallingCode] = useState("");
@@ -123,33 +125,24 @@ export default function ContactUs() {
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Contact Us"} secondUrl={"/contact-us"} />
       </Container>
-      <Container maxW={"container.xl"} mb={4} px={0} >
-      <Box
-        w={"100%"}
-        bgImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/contact.jpg"}
-        bgSize="cover"
-        bgPosition="center"
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        mt={"-10px"}
-        py={20}
-        boxShadow={"0px 0px 0px 0px"}
-        backdropFilter="blur(10px)"
-        height={"550px"}
-        // mb={10}
-      >
+      <Container maxW={"container.xl"} py={8} px={0} position="relative">
+        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/contact.jpg" />
+
         <Text
           pb={2}
           color={"brand.100"}
           textAlign={"center"}
-          textShadow={"lightgreen"}
-          fontSize="6xl"
-          fontWeight="700"
+          fontSize={{ lg: "7xl", md: "4xl", base: "2xl" }}
+          fontWeight="600"
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+          zIndex="1"
+          // Optional: Add background to improve text readability
         >
           Contact  Us
         </Text>
-      </Box>
       </Container>
       <Container maxW="container.lg" pb={10}>
         {/* <Text
@@ -172,7 +165,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
           >
             <FormLabel
@@ -200,7 +193,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
             mt="5"
           >
@@ -229,7 +222,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
             mt="5"
           >
@@ -269,8 +262,8 @@ export default function ContactUs() {
               chakraStyles={{
                 inputContainer: (provided) => ({
                   ...provided,
-                  maxWidth: "340px",
-                  minWidth: "340px",
+                  maxWidth: width,
+                  minWidth: width,
                 }),
               }}
               variant={"outline"}
@@ -293,7 +286,7 @@ export default function ContactUs() {
             <FormControl
               as={Flex}
               direction={{ base: "column", md: "row" }}
-              align="center"
+               align={{md:"center",base:"start"}}
               isRequired
               mt="5"
             >
@@ -329,7 +322,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
             mt="5"
           >
@@ -358,7 +351,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
             mt="5"
           >
@@ -387,7 +380,7 @@ export default function ContactUs() {
           <FormControl
             as={Flex}
             direction={{ base: "column", md: "row" }}
-            align="center"
+             align={{md:"center",base:"start"}}
             isRequired
             mt="5"
             mb={"5"}

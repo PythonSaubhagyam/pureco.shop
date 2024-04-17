@@ -88,7 +88,7 @@ export default function ProductListSection({ title, products, loading, type }) {
   return (
     <>
       <Container maxW={"container.xl"} px={0} pt={4} pb={6}>
-        {/* <Text
+        <Text
           fontSize={{ base: "xl", sm: "2xl", xl: "3xl" }}
           bgColor={"bg.500"}
           px={{ base: 2, md: 8 }}
@@ -98,7 +98,7 @@ export default function ProductListSection({ title, products, loading, type }) {
           fontWeight={500}
         >
           {title}
-        </Text> */}
+        </Text>
         {type === "carousal" && products.length > 4 ? (
           <Slider {...settings}>  
             {loading === true
@@ -128,8 +128,8 @@ export default function ProductListSection({ title, products, loading, type }) {
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(5, 1fr)",
+              md: "repeat(4, 1fr)",
+              lg: "repeat(4, 1fr)",
             }}
             //justify={ "start"}
             justify="center"
@@ -137,7 +137,7 @@ export default function ProductListSection({ title, products, loading, type }) {
             direction={{ base: "column", md: "row" }}
             // wrap={"wrap"}
             wrap={{ md: "wrap", lg: "nowrap" }}
-            px={5}
+            px={{md:"10%"}}
           >
             {loading === true ? (
               <>
