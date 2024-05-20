@@ -34,10 +34,10 @@ const AboutUs = () => {
       </Container>
       <Container maxW={"6xl"} mb={4} px={{ md: 0, base: 7 }} centerContent>
         <VStack>
-          <Image
+          {/* <Image
             src="https://www.pureco.shop/web/image/321079/about%20Pureco.png"
             alt="about pureco"
-          />
+          /> */}
 
           <Box textAlign={"justify"} fontSize={16} mt={10}>
             PURECO believes that ancient Bharat holds the key to many challenges
