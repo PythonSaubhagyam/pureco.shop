@@ -3,6 +3,7 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
 import { Box, Container, VStack, Image, Text, Link } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 const AboutUs = () => {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -75,6 +76,7 @@ const AboutUs = () => {
           </Box>
         </VStack>
       </Container>
+      <ScrollToTop/>
       {IsMobileView !== "true" && <Footer />}
     </>
   );

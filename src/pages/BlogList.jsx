@@ -32,7 +32,7 @@ import {
   PaginationPageGroup,
 } from "@ajna/pagination";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-
+import ScrollToTop from "../components/ScrollToTop";
 export default function BlogList() {
   const [blogs, setBlogs] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -371,6 +371,7 @@ export default function BlogList() {
           </Box>
         </Flex>
       </Container>
+      <ScrollToTop/>
       <Footer />
     </>
   );

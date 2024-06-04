@@ -11,7 +11,7 @@ import { PhoneIcon, EmailIcon } from "@chakra-ui/icons";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-
+import ScrollToTop from "../components/ScrollToTop";
 export default function Franchise() {
   return (
     <>
@@ -401,6 +401,7 @@ export default function Franchise() {
           </Flex>
         </Center>
       </Container>
+      <ScrollToTop/>
       <Footer />
     </>
   );

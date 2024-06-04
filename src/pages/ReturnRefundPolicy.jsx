@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-
+import ScrollToTop from "../components/ScrollToTop";
 export default function ReturnRefundPolicy() {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
@@ -94,6 +94,7 @@ export default function ReturnRefundPolicy() {
           </ListItem>
         </UnorderedList>
       </Container>
+      <ScrollToTop/>
       {IsMobileView !== "true" && <Footer />}
     </>
   );

@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import checkLogin from "../utils/checkLogin";
-
+import ScrollToTop from "../components/ScrollToTop";
 import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 
@@ -227,6 +227,7 @@ export default function ConsultOurVaidya() {
                     </Box>
                 </Flex>
             </Container>
+            <ScrollToTop/>
             <Footer />
         </>
     );

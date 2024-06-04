@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
 import { Box, Container, Text,Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-
+import ScrollToTop from "../components/ScrollToTop";
 const Posts = [
   {
     image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/inspire-and-support/bansi gir gaushala.jpg",
@@ -70,6 +70,7 @@ export default function InspireSupport() {
           <ReadMorePost color={"text.600"} postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
+      <ScrollToTop/>
       <Footer />
     </>
   );
