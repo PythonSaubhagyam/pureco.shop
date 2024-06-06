@@ -31,7 +31,6 @@ import {
   FormControl,
   FormLabel,
   Textarea,
-
 } from "@chakra-ui/react";
 import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import { FaShoppingCart } from "react-icons/fa";
@@ -52,8 +51,6 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import ProductImageSection from "../components/ProductImageSection";
 import StarRating from "../components/StarRatings";
 import ScrollToTop from "../components/ScrollToTop";
-
-
 
 function ButtonIncrement(props) {
   return (
@@ -178,7 +175,7 @@ export default function ProductDetails() {
         }
       });
   }
-  
+
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -360,34 +357,33 @@ export default function ProductDetails() {
                         ))}
                     </Box>
                     {avgRating && <StarRating avgRating={avgRating} />}
-                    
                   </Flex>
                   <Flex>
-                  {/* {loginInfo.isLoggedIn &&( */}
-                      <Link
-                        pt={0.5}
-                        //pl={2}
-                        fontWeight={400}
-                        fontSize={"lg"}
-                        color={"dimgray"}
-                        textDecoration="none"
-                        _hover={{ color: "brand.500" }}
-                        //as={RouterLink}
-                        to={"/products"}
-                        // onClick={() => {
-                        //   // setFormData({
-                        //   //   ...formData,
-                        //   //   id: item.id,
-                        //   //   name: item.product_name,
-                        //   // });
-                        //   onOpen();
-                        // }}
-                        onClick={handleWriteReview}
-                      >
-                        Write a review
-                      </Link>
+                    {/* {loginInfo.isLoggedIn &&( */}
+                    <Link
+                      pt={0.5}
+                      //pl={2}
+                      fontWeight={500}
+                      fontSize={"lg"}
+                      color={"brand.50"}
+                      textDecoration="none"
+                      _hover={{ color: "text.50" }}
+                      //as={RouterLink}
+                      to={"/products"}
+                      // onClick={() => {
+                      //   // setFormData({
+                      //   //   ...formData,
+                      //   //   id: item.id,
+                      //   //   name: item.product_name,
+                      //   // });
+                      //   onOpen();
+                      // }}
+                      onClick={handleWriteReview}
+                    >
+                      Write a review
+                    </Link>
                     {/* )} */}
-                  {noOfReviews && noOfReviews !== 0 && (
+                    {noOfReviews && noOfReviews !== 0 && (
                       <Text
                         as="span"
                         color="gray.500"
@@ -402,7 +398,7 @@ export default function ProductDetails() {
                         {noOfReviews > 1 ? "s" : null})
                       </Text>
                     )}
-                    
+
                     {/* {productData.brand_name &&
                       productData.brand_name.length > 0 && (
                         <Text
@@ -601,7 +597,7 @@ export default function ProductDetails() {
                 justifyContent={{ base: "center", lg: "start" }}
                 px={0}
               >
-                <Box  width={"container.lg"} mt={7}>
+                <Box width={"container.lg"} mt={7}>
                   <Text
                     fontSize={{ base: "xl", sm: "2xl" }}
                     bgColor={"bg.100"}
@@ -700,7 +696,7 @@ export default function ProductDetails() {
               bg="blackAlpha.300"
               backdropFilter="blur(2px) hue-rotate(90deg)"
             />
-          <ModalContent>
+            <ModalContent>
               <form onSubmit={handleSubmit}>
                 <ModalHeader fontWeight={600}>
                   Write Review for {productData.name}
@@ -745,7 +741,7 @@ export default function ProductDetails() {
               </form>
             </ModalContent>
           </Modal>
-         <ScrollToTop/>
+          <ScrollToTop />
           {/* </Flex> */}
         </>
       )}

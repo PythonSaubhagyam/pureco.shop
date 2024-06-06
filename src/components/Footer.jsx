@@ -15,6 +15,8 @@ import { TfiYoutube } from "react-icons/tfi";
 import { FiInstagram } from "react-icons/fi";
 import { useNavigate, NavLink as RouterLink } from "react-router-dom";
 import { IoMail } from "react-icons/io5";
+import CartPopUp from "./CartPopUp";
+
 const ListHeader = ({ children }) => {
   return (
     <Text fontWeight={"500"} fontSize={"lg"} mb={1} color="brand.100">
@@ -361,6 +363,7 @@ export default function Footer() {
           </Text>
         </Box>
       </Container>
+      <CartPopUp/>
     </>
   );
 }

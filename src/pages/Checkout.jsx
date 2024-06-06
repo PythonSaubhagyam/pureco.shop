@@ -156,6 +156,8 @@ export default function Checkout({ getDetails }) {
         localStorage.removeItem("isAGift");
         localStorage.removeItem("giftMessage");
         localStorage.setItem("cart_counter", 0);
+        localStorage.setItem("product_total",0);
+
         navigate("/profile#orders", { relative: true });
       }
     } catch (error) {
