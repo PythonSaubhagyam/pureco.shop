@@ -99,10 +99,10 @@ export default function Login() {
             ) {
               localStorage.setItem("id", response.data.data.id);
               localStorage.setItem("access", true);
-              navigate("/", { replace: true });
+              navigate("/shop", { replace: true });
             } else {
               setTimeout(() => {
-                navigate("/", { replace: true });
+                navigate("/shop", { replace: true });
               }, 1000);
             }
           } else {
