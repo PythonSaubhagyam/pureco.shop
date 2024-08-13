@@ -137,7 +137,8 @@ export default function ProductListSection({ title, products, loading, type }) {
             direction={{ base: "column", md: "row" }}
             // wrap={"wrap"}
             wrap={{ md: "wrap", lg: "nowrap" }}
-            px={{md:"10%"}}
+            px={4}
+            gap={2}
           >
             {loading === true ? (
               <>

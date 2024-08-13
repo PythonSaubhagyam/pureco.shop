@@ -438,7 +438,7 @@ export default function Home() {
           textAlign={{ base: "center", md: "start" }}
           px={{ base: 2, md: 8 }}
           py={4}
-          my={7}
+          my={3}
         >
           About Pureco
         </Text>
