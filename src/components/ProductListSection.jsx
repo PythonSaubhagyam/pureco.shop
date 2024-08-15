@@ -128,7 +128,7 @@ export default function ProductListSection({ title, products, loading, type }) {
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",
-              md: "repeat(4, 1fr)",
+              md: "repeat(3, 1fr)",
               lg: "repeat(4, 1fr)",
             }}
             //justify={ "start"}
