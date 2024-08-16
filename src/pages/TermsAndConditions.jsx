@@ -6,21 +6,21 @@ import {
   Link,
   Box,
   Text,
-  Image
+  Image,
 } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
-// import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 export default function TermsAndConditions() {
-  // let { search } = useLocation();
-  // const searchParams = new URLSearchParams(search);
-  // const IsMobileView = searchParams.get("mobile") ?? "false";
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
 
   return (
     <>
-      <Navbar />
+      {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom
           second={"Terms And Conditions"}
@@ -124,8 +124,8 @@ export default function TermsAndConditions() {
           </ListItem>
         </UnorderedList>
       </Container>
-      <ScrollToTop/>
-      <Footer />
+      <ScrollToTop />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

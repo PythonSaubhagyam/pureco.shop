@@ -12,10 +12,14 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+import { useLocation } from "react-router-dom";
 export default function Franchise() {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+     const IsMobileView = searchParams.get("mobile") ?? "false";
   return (
     <>
-      <Navbar />
+      {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Franchise"} secondUrl={"/franchise"} />
       </Container>
@@ -402,7 +406,7 @@ export default function Franchise() {
         </Center>
       </Container>
       <ScrollToTop/>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

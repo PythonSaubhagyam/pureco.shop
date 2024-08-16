@@ -22,7 +22,12 @@ import CapitalizeLetter from "../utils/CommanFunction";
 import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
+import { useLocation } from "react-router-dom";
+
 export default function Export() {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+     const IsMobileView = searchParams.get("mobile") ?? "false";
   const { handleSubmit, control, formState } = useForm();
   const initialData = {
     company_name: "",
@@ -224,7 +229,7 @@ export default function Export() {
   };
   return (
     <>
-      <Navbar />
+      {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Bussiness"} secondUrl={"/bussiness"} />
       </Container>
@@ -1487,7 +1492,7 @@ export default function Export() {
         </form>
       </Container>
       <ScrollToTop/>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

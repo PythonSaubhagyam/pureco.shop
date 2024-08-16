@@ -13,7 +13,13 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+import { useLocation } from "react-router-dom";
+
 export default function OrganicLiving() {
+    let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+     const IsMobileView = searchParams.get("mobile") ?? "false";
+
     const banners = [
         {
         
@@ -46,7 +52,7 @@ export default function OrganicLiving() {
 
     return (
         <>
-            <Navbar />
+             {IsMobileView !== "true" && <Navbar />}
 
             <Container maxW={"container.xl"} alignContent={"flex-start"}>
                 <BreadCrumbCom
@@ -438,7 +444,7 @@ export default function OrganicLiving() {
                 </Container>
             </Container>
             <ScrollToTop/>
-            <Footer />
+            {IsMobileView !== "true" && <Footer />}
         </>
     );
 }

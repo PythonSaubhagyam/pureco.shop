@@ -18,11 +18,15 @@ import Footer from "../components/Footer";
 import { useState } from "react";
 import client from "../setup/axiosClient";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import CapitalizeLetter from "../utils/CommanFunction";
 import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
 export default function Bussiness() {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+     const IsMobileView = searchParams.get("mobile") ?? "false";
   const { handleSubmit, control, formState } = useForm();
   const initialData = {
     company_name: "",
@@ -204,7 +208,7 @@ export default function Bussiness() {
   };
   return (
     <>
-      <Navbar />
+         {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Bussiness"} secondUrl={"/bussiness"} />
       </Container>
@@ -1066,7 +1070,7 @@ export default function Bussiness() {
         </form>
       </Container>
       <ScrollToTop/>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

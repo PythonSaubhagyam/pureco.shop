@@ -14,12 +14,18 @@ import { useNavigate } from "react-router-dom";
 import checkLogin from "../utils/checkLogin";
 import ScrollToTop from "../components/ScrollToTop";
 
+import { useLocation } from "react-router-dom";
 import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 
 export default function ConsultOurVaidya() {
+  let { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+   const IsMobileView = searchParams.get("mobile") ?? "false";
+
   const toast = useToast();
   const navigate = useNavigate();
+  
 
   function navigateToBooking() {
     const loginInfo = checkLogin();
@@ -39,7 +45,7 @@ export default function ConsultOurVaidya() {
 
   return (
     <>
-      <Navbar />
+       {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom
           second={"Consult Our Vaidya"}
@@ -278,7 +284,7 @@ export default function ConsultOurVaidya() {
         </Flex>
       </Container>
       <ScrollToTop />
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 }

@@ -6,9 +6,12 @@ import { Box, Container, VStack, Image, Text, Heading } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 const PrivacyPolicy = () => {
+  let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+   const IsMobileView = searchParams.get("mobile") ?? "false";
   return (
     <>
-      <Navbar />
+       {IsMobileView !== "true" && <Navbar />}
       <Container maxW={"container.xl"} alignContent={"flex-start"}>
         <BreadCrumbCom
           second={"Privacy Policy"}
@@ -325,7 +328,7 @@ const PrivacyPolicy = () => {
         />
       </Container>
       <ScrollToTop/>
-      <Footer />
+      {IsMobileView !== "true" && <Footer />}
     </>
   );
 };
