@@ -130,7 +130,6 @@ export default function ProductDetails() {
     getProductDetails(); // eslint-disable-next-line
   }, [productId]);
 
- 
   async function getProductDetails() {
     setLoading(true);
     client
@@ -177,9 +176,12 @@ export default function ProductDetails() {
         }
       });
   }
-
-  const modifiedDescription = productData && productData.description
-  .replace(/<h6>/g, '<h6 style="color:#2C4C03; font-weight:bold; font-size:18px;">');
+  const modifiedDescription =
+    productData &&
+    productData.description.replace(
+      /<h6>/g,
+      '<h6 style="color:#2C4C03; font-weight:bold; font-size:18px;">'
+    );
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -301,7 +303,8 @@ export default function ProductDetails() {
                   justify="center"
                   direction={"column"}
                   gap={2}
-                  align={{ base: "center", md: "flex-start" }}
+                  align={{ base: "flex-start", md: "flex-start" }}
+
                   //mt={{md:16}}
                 >
                   <Heading
@@ -353,6 +356,7 @@ export default function ProductDetails() {
                           color={"black"}
                           fontWeight={"500"}
                         >
+                          Brand :{"  "}
                           {productData.brand_name}
                         </Text>
                       )}
@@ -468,6 +472,7 @@ export default function ProductDetails() {
                         base: "16px",
                         lg: "16px",
                       }}
+                      // height={130}
                       // lineHeight={1.5}
                       fontWeight={"400"}
                       textAlign="justify"
@@ -475,7 +480,7 @@ export default function ProductDetails() {
                       color={"black"}
                     >
                       {productData?.benefits.map((benefit, index) => (
-                        <li key={index} style={{fontSize:"16px"}}>
+                        <li key={index} style={{ fontSize: "16px" }}>
                           {benefit}
                         </li>
                       ))}
@@ -501,20 +506,14 @@ export default function ProductDetails() {
                     </Text>
                   </Skeleton>
 
-                  <SimpleGrid
-                    spacing={{ base: 8, md: 6 }}
-                    zIndex={0}
-                    //pb={3}
-                    pt={5}
-                    //mt={5}
-                  >
+                  <SimpleGrid spacing={{ base: 8, md: 7 }} zIndex={0} pt={5}>
                     {totalQuantity?.Quantity !== 0 && (
                       <ButtonGroup
                         as={Flex}
                         p={0}
                         alignItems="center"
                         justifyContent={{
-                          base: "center",
+                          base: "start",
                           md: "start",
                         }}
                       >
@@ -554,6 +553,7 @@ export default function ProductDetails() {
                           id="addToCartButton"
                           as={Flex}
                           //textAlign={"center"}
+
                           gap={2}
                           colorScheme="brand"
                           size="sm"
@@ -563,19 +563,21 @@ export default function ProductDetails() {
                             bg: "brand.500",
                             cursor: "pointer",
                           }}
-                          me={3}
+                          //pt={2}
+                          //me={3}
                           onClick={() => AddToCart(productData?.id, counter)}
                         >
                           <FaShoppingCart />
-                          <Text mt={1}>ADD TO CART</Text>
+                          <Text>ADD TO CART</Text>
                         </Button>
                       )}
 
                       <Button
                         colorScheme={isWished ? "red" : "brand"}
                         as={Flex}
-                        gap={1}
+                        gap={3}
                         size="sm"
+                        style={{ marginLeft: 0 }}
                         _hover={
                           isWished
                             ? {
@@ -591,8 +593,12 @@ export default function ProductDetails() {
                         }
                         onClick={() => handleWishlistChange(productData?.id)}
                       >
-                        <AiFillHeart /><Text mt={1}>
-                        {isWished ? "REMOVE FROM WISHLIST" : "ADD TO WISHLIST"}</Text>
+                        <AiFillHeart />
+                        <Text>
+                          {isWished
+                            ? "REMOVE FROM WISHLIST"
+                            : "ADD TO WISHLIST"}
+                        </Text>
                       </Button>
                     </ButtonGroup>
                   </SimpleGrid>
@@ -608,7 +614,7 @@ export default function ProductDetails() {
                   mt={1}
                   dangerouslySetInnerHTML={{
                     // __html: dompurify.sanitize(productData?.description),
-                    __html:modifiedDescription,
+                    __html: modifiedDescription,
                   }}
                 />
               </Skeleton>
