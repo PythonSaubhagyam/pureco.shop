@@ -355,12 +355,14 @@ export default function ProductDetails() {
                           }}
                           color={"#2C4C03"}
                           fontWeight={"500"}
+                          cursor={"pointer"}
+                          onClick={()=>navigate(`/shop?page=1&brand=${productData.brand}&brand_name=${productData.brand_name}`)}
                         >
                           Brand :{"  "}
                           {productData.brand_name}
                         </Text>
                       )}
-                    <Box
+                    {/* <Box
                       // as="ul"
                       whiteSpace={"pre-line"}
                       marginLeft={2}
@@ -376,7 +378,7 @@ export default function ProductDetails() {
                         productData.brand_name.map((brand, index) => (
                           <li key={index}>{brand}</li>
                         ))}
-                    </Box>
+                    </Box> */}
                     {avgRating && <StarRating avgRating={avgRating} />}
                   </Flex>
                   <Flex>
