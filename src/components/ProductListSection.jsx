@@ -142,7 +142,7 @@ export default function ProductListSection({ title, products, loading, type }) {
           >
             {loading === true ? (
               <>
-                {[0, 1, 2, 3, 4].map(() => (
+                {[0, 1, 2, 3].map(() => (
                   <Box
                     padding="6"
                     boxShadow="lg"
