@@ -34,15 +34,16 @@ export default function Addtocart() {
   const [removeLoading, setRemoveLoading] = useState();
   const [wishlistItems, setWishlistItems] = useState([]);
   const loginInfo = checkLogin();
-  const checkOrSetUDIDInfo = CheckOrSetUDID();
+  
+
+  useEffect(() => {
+    async function getWishlist() {
+      const checkOrSetUDIDInfo = await CheckOrSetUDID();
   let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
 
   if (loginInfo.isLoggedIn === true) {
     headers = { Authorization: `token ${loginInfo.token}` };
   }
-
-  useEffect(() => {
-    async function getWishlist() {
       const response = await client.get("/wishlist/", {
         headers: headers,
       });

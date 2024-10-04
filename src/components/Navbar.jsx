@@ -275,7 +275,11 @@ export default function Navbar() {
   };
 
   useEffect(() => {
-    CheckOrSetUDID();
+    const init = async () => {
+      await CheckOrSetUDID();
+       };
+  
+    init();
     getMegaCategories();
   }, []);
 
@@ -330,7 +334,7 @@ export default function Navbar() {
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
-    CheckOrSetUDID();
+    //CheckOrSetUDID();
     getCategories();
   }, []);
 

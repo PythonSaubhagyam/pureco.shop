@@ -337,7 +337,12 @@ export default function Home() {
   const isMobiles = width <= 768;
   const navigate = useNavigate();
   useEffect(() => {
-    CheckOrSetUDID();
+    const init = async () => {
+      await CheckOrSetUDID();
+       };
+  
+    init();
+  
     //getHomePageData();
     getBlogs();
     setLoading(false)
@@ -747,7 +752,7 @@ export default function Home() {
         <Container maxW={"container.xl"} mb={5} px={0} centerContent>
           <Image
             src={
-              require("../../public/001.jpg")
+              "/001.jpg"
             }
             w={"100%"}
             alt=""
