@@ -18,7 +18,7 @@ import { IoMail } from "react-icons/io5";
 import CartPopUp from "./CartPopUp";
 import checkLogin from "../utils/checkLogin";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
-
+import WhatsUp from "../components/WhatsUp";
 const ListHeader = ({ children }) => {
   return (
     <Text fontWeight={"500"} fontSize={"lg"} mb={1} color="brand.100">
@@ -372,7 +372,7 @@ export default function Footer() {
         </Box>
       </Container>
       {loginInfo.isLoggedIn && <CartPopUp />}
-
+      <WhatsUp/>
     </>
   );
 }
