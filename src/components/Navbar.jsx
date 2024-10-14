@@ -1234,6 +1234,15 @@ export default function Navbar() {
               <FaFacebookF fontSize={20} />
             </Link>
             <Link
+              _hover={{ color: "text.500" }}
+              isExternal={true}
+              as={ReactRouterLink}
+              to={"https://api.whatsapp.com/send/?phone=7405095969&text&type=phone_number&app_absent=0"}
+            >
+              <FaWhatsapp fontSize={20} />
+            </Link> 
+           
+            <Link
               // _hover={{ color: "text.500" }}
               isExternal={true}
               as={ReactRouterLink}
