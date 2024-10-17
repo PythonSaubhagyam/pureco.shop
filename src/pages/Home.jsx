@@ -372,27 +372,29 @@ export default function Home() {
   }
   async function getLowerSection() {
     const params = {};
-    const response = await client.get("/lower-section", {
+    const response = await client.get("/lower-section/", {
       params: params,
     });
     if (response.data.status === true) {
       setSections(response.data.data);
-
-      const ourAwaredsSection = response.data.data?.filter(
-        (section) =>section ===2
-      )
+     
+      const ourServicesSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
       const availableAtSection = response.data.data?.filter(
         (section) => section.id === 3
       );
       const ourAwardsSection = response.data.data?.filter(
         (section) => section.id === 1
       );
+     
       setAwardSection(ourAwardsSection);
       setServicesSection(ourServicesSection);
       setAvailableSection(availableAtSection);
      
     }
   }
+
 
   const new_arrival_gir_gauveda = [
     // {
@@ -726,65 +728,68 @@ export default function Home() {
         <Container maxW={"5xl"} mt={5}>
           <Image src="./Pureco/Home/pureco.jpg" alt="imag" />
         </Container>
-        <Box
-          w="100%"
-          // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{ md: 33, base: 22 }}
-            mx="auto"
-            align={"center"}
-            mt={8}
-            mb={3}
-          >
-             {sections?.length >0 && sections[1].label}
-          </Heading>
-        </Box>
-        <Box display={"flex"} justifyContent={"center"}>
-          <LazyLoadImage
-              src={sections?.length > 0 && sections[1]?.images[0].image}
-            w={{ base: "100%", md: "100%" }}
-            alt=""
-            py={4}
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Box>
-        <Box
-          w="100%"
-          // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{ md: 33, base: 22 }}
-            mx="auto"
-            align={"center"}
-            my={3}
-          >
-            {sections?.length >0 && sections[2].label}
-          </Heading>
-        </Box>
-        <Container maxW={"container.xl"} mb={5} px={0} centerContent>
-          <Image
-              src={sections?.length > 0 && sections[2]?.images[0].image}
-            w={"100%"}
-            alt=""
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Container>
-     
+
+        {servicesSection?.length > 0 &&
+        servicesSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "container.xl" }}>
+           
+              <Heading
+                color="brand.500"
+                fontSize={{ md: 33, base: 20 }}
+                mx="auto"
+                align={"center"}
+                my={"5"}
+                pb={"10px"}
+              >
+                {servicesSection?.length > 0 && servicesSection[0].label}
+              </Heading>
+           
+            <Box display={"flex"} justifyContent={"center"}>
+              <LazyLoadImage
+                src={
+                  servicesSection?.length > 0 &&
+                  servicesSection[0]?.images[0].image
+                }
+                w={{ base: "100%", md: "100%" }}
+                alt=""
+                py={4}
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+            </Box>
+          </Container>
+        )}
+        {availableSection?.length > 0 &&
+        availableSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} mb={5} px={0} centerContent>
+            
+              <Heading
+                color="brand.500"
+                fontSize={{ md: 33, base: 22 }}
+                mx="auto"
+                align={"center"}
+                my={"5"}
+                pb={"10px"}
+              >
+                {availableSection?.length > 0 && availableSection[0].label}
+              </Heading>
+            
+            <Image
+              src={
+                availableSection?.length > 0 &&
+                availableSection[0]?.images[0].image
+              }
+              w={"container.xl"}
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />
+          </Container>
+        )}
       <ScrollToTop/>
       <Footer />
       {/* </>
