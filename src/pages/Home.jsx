@@ -333,6 +333,9 @@ export default function Home() {
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
+  const [awardsSection, setAwardSection] = useState();
+  const [servicesSection, setServicesSection] = useState();
+  const [availableSection, setAvailableSection] = useState();
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
   const isMobiles = width <= 768;
@@ -347,7 +350,7 @@ export default function Home() {
     //getHomePageData();
     getBlogs();
     setLoading(false)
-    getImage();
+    getLowerSection();
   }, []);
 
   // async function getHomePageData() {
@@ -367,13 +370,27 @@ export default function Home() {
       setBlogs(response.data.blogs);
     }
   }
-  async function getImage() {
+  async function getLowerSection() {
     const params = {};
     const response = await client.get("/lower-section", {
       params: params,
     });
     if (response.data.status === true) {
       setSections(response.data.data);
+
+      const ourAwaredsSection = response.data.data?.filter(
+        (section) =>section ===2
+      )
+      const availableAtSection = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const ourAwardsSection = response.data.data?.filter(
+        (section) => section.id === 1
+      );
+      setAwardSection(ourAwardsSection);
+      setServicesSection(ourServicesSection);
+      setAvailableSection(availableAtSection);
+     
     }
   }
 
@@ -653,56 +670,58 @@ export default function Home() {
           </Stat> */}
         </SimpleGrid>
       </Container>
-      <Container maxW={{ base: "100vw", md: "container.xl" }} px={0}>
-        <Box
-          w="100%"
-          // backgroundImage={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/line.png"}
-          backgroundSize="100%"
-          backgroundPosition="50% 100%"
-          backgroundRepeat={"no-repeat"}
-        >
-          <Heading
-            color="brand.500"
-            fontSize={{ md: 33, base: 22 }}
-            mx="auto"
-            align={"center"}
-            my={3}
-          >
-            {sections?.length >0 && sections[0].label}
-          </Heading>
-        </Box>
-        <Text mb={3} textAlign={"center"} color="text.300">
-          <b>
-            {" "}
-            We are committed to quality and each of our facilities is
-            independently certified by an industry-accredited agency.
-          </b>
-        </Text>
-        <Flex
-          justifyContent="space-evenly"
-          direction={{ base: "column", md: "row" }}
-          align="center"
-          gap={12}
-          pt={1}
-          pb={6}
-        >
-          <LazyLoadImage
-             src={sections?.length > 0 && sections[0]?.images[0].image}
-            alt="global-certificate"
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-          <LazyLoadImage
-             src={sections?.length > 0 && sections[0]?.images[1].image}
-            alt="ciolook-certificate"
-            style={{
-              opacity: 1,
-              transition: "opacity 0.7s", // Note the corrected syntax here
-            }}
-          />
-        </Flex>
+      {awardsSection?.length > 0 &&
+        awardsSection[0]?.is_visible_on_website === true && (
+          <Container maxW={{ base: "100vw", md: "container.xl" }}>
+           
+              <Heading
+                color="brand.500"
+                fontSize={{ md: 33, base: 20 }}
+                mx="auto"
+                align={"center"}
+                mt={3}
+                pb={"10px"}
+              >
+                {awardsSection?.length > 0 && awardsSection[0]?.label}
+              </Heading>
+           
+            <Text my={5} textAlign={"center"} color="text.300">
+              We are committed to quality and each of our facilities is
+              independently certified by an industry-accredited agency.
+            </Text>
+            <Flex
+              justifyContent="space-evenly"
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              gap={12}
+              pt={1}
+              pb={6}
+            >
+              <LazyLoadImage
+                src={
+                  awardsSection[0]?.images?.length > 0 &&
+                  awardsSection[0]?.images[0]?.image
+                }
+                alt="global-certificate"
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+              <LazyLoadImage
+                src={
+                  awardsSection[0]?.images?.length > 0 &&
+                  awardsSection[0]?.images[1]?.image
+                }
+                alt="ciolook-certificate"
+                style={{
+                  opacity: 1,
+                  transition: "opacity 0.7s", // Note the corrected syntax here
+                }}
+              />
+            </Flex>
+          </Container>
+        )}
 
         <Container maxW={"5xl"} mt={5}>
           <Image src="./Pureco/Home/pureco.jpg" alt="imag" />
@@ -765,7 +784,7 @@ export default function Home() {
             }}
           />
         </Container>
-      </Container>
+     
       <ScrollToTop/>
       <Footer />
       {/* </>
