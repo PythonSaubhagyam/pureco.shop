@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import {
@@ -19,11 +20,13 @@ import { useLocation } from "react-router-dom";
 import { HiInformationCircle } from "react-icons/hi";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+import LoginModal from "../components/LoginModal";
 
 export default function ConsultOurVaidya() {
     let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const toast = useToast();
     const navigate = useNavigate();
@@ -40,7 +43,7 @@ export default function ConsultOurVaidya() {
                 duration: 3000,
                 isClosable: true,
             });
-            navigate("/login");
+            setIsLoginModalOpen(true)
         }
     }
 
@@ -297,6 +300,12 @@ export default function ConsultOurVaidya() {
                     </Box>
                 </Flex>
             </Container>
+            {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
             <ScrollToTop/>
             {IsMobileView !== "true" && <Footer />}
         </>

@@ -65,6 +65,7 @@ import { FaApple, FaFacebookF, FaGooglePlay, FaWhatsapp } from "react-icons/fa";
 import { FiInstagram } from "react-icons/fi";
 import { debounce } from "lodash";
 import CartEmitter from "./EventEmitter";
+import LoginModal from "./LoginModal";
 
 const Links = [
   {
@@ -208,6 +209,7 @@ export default function Navbar() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const menuRef = useRef(null);
   const [topCategory, setTopCategory] = useState([]);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const handleScroll = (direction) => {
     const menu = menuRef.current;
     const scrollAmount = 100; // Adjust this value based on how much you want to scroll
@@ -601,8 +603,7 @@ export default function Navbar() {
                     _hover={{ bg: "brand.500" }}
                   > */}
                   <MenuItem
-                    as={Link}
-                    href="/login"
+                    onClick={()=>setIsLoginModalOpen(true)}
                     cursor={"pointer"}
                     _hover={{ textDecoration: "none" }}
                   >
@@ -1071,7 +1072,7 @@ export default function Navbar() {
                     }}
                     fontWeight={500}
                     fontSize={{ md: "14px" }}
-                    onClick={() => navigate("/login")}
+                    onClick={() =>setIsLoginModalOpen(true)}
                   >
                     Login
                   </Link>
@@ -1285,6 +1286,12 @@ export default function Navbar() {
           </GridItem>
         </Grid>
       </Container>
+      {!checkLogin().isLoggedIn && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={() => setIsLoginModalOpen(false)}
+        />
+      )}
     </Box>
   );
 }
