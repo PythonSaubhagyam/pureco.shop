@@ -502,7 +502,8 @@ export default function Home() {
           _hover={{ bgColor: "text.500", color: "white" }}
           borderRadius={"22px"}
           border={"1px"}
-          href="/about-us"
+         // href="/about-us"
+         onClick={() => navigate(`/about-us`)}
           color={"text.500"}
         >
           {" "}
