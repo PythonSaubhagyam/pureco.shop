@@ -18,7 +18,7 @@ export default function ProductCard({ product }) {
       borderColor="brand.100"
       borderRadius={"lg"}
       onClick={() => {
-        window.location.href = `/products/${product.id}`;
+        window.location.href = `/products/${product.product}`;
         // navigate(),
         //   window.scrollTo({
         //     top: 0,
@@ -30,8 +30,8 @@ export default function ProductCard({ product }) {
     >
       <CardBody backgroundColor={"white"} borderRadius="lg">
         <Image
-          src={product.home_image ? product.home_image : product.image1}
-          alt={product.name}
+          src={product.image ? product.image : product.image1}
+          alt={product.product_name}
           borderRadius="lg"
           boxSize="150px"
           objectFit={"contain"}
@@ -56,14 +56,14 @@ export default function ProductCard({ product }) {
             mb={3}
             noOfLines={3}
             fontWeight="500"
-            title={product.name}
+            title={product.product_name}
           >
-            {product.name}
+            {product.product_name}
           </Heading>
         </Box>
         <Button
           as={Link}
-          to={`/products/${product.id}`}
+          to={`/products/${product.product}`}
           fontSize="sm"
           w={{ base: "100%", lg: "80%" }}
           mx="auto"
