@@ -100,36 +100,36 @@ export default function ProductListSection({ title, products, loading, type }) {
           {title}
         </Text>
         {type === "carousal" && products.length > 4 ? (
-          <Slider {...settings}>  
+          <Slider {...settings}>
             {loading === true
               ? [0, 1, 2, 3, 4].map((index) => (
-                <Box
-                  key={index}
-                  padding="6"
-                  boxShadow="lg"
-                  bg="white"
-                  w={{ base: "80vw", sm: "3xs", lg: "2xs" }}
-                >
-                  <Skeleton width={150} mx={"auto"} height={150} />
-                  <SkeletonText
-                    my="4"
-                    noOfLines={1}
-                    spacing="4"
-                    skeletonHeight="2"
-                  />
-                  <Skeleton mx="auto" width={100} height={5} />
-                </Box>
-              ))
+                  <Box
+                    key={index}
+                    padding="6"
+                    boxShadow="lg"
+                    bg="white"
+                    w={{ base: "80vw", sm: "3xs", lg: "2xs" }}
+                  >
+                    <Skeleton width={150} mx={"auto"} height={150} />
+                    <SkeletonText
+                      my="4"
+                      noOfLines={1}
+                      spacing="4"
+                      skeletonHeight="2"
+                    />
+                    <Skeleton mx="auto" width={100} height={5} />
+                  </Box>
+                ))
               : products?.map((product) => (
-                <ProductCard key={product.id} product={product} />
-              ))}
+                  <ProductCard key={product.id} product={product} />
+                ))}
           </Slider>
         ) : (
           <Grid
             templateColumns={{
               base: "repeat(1, 1fr)",
-              md: "repeat(3, 1fr)",
-              lg: "repeat(4, 1fr)",
+              md: "repeat(5, 1fr)",
+             
             }}
             //justify={ "start"}
             justify="center"
@@ -137,12 +137,11 @@ export default function ProductListSection({ title, products, loading, type }) {
             direction={{ base: "column", md: "row" }}
             // wrap={"wrap"}
             wrap={{ md: "wrap", lg: "nowrap" }}
-            px={4}
-            gap={2}
+            px={5}
           >
             {loading === true ? (
               <>
-                {[0, 1, 2, 3].map(() => (
+                {[0, 1, 2, 3, 4].map(() => (
                   <Box
                     padding="6"
                     boxShadow="lg"

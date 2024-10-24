@@ -75,7 +75,7 @@ const CartPopUp = () => {
         px={1}
         display={location.pathname === "/cart" ? "none" : "flex"}
       >
-        {isEliteMember ? (
+        {isEliteMember && (
           <Box
             bgColor={"brand.500"}
             color={"#fff"}
@@ -90,7 +90,8 @@ const CartPopUp = () => {
           >
             
           </Box>
-        ) : (
+        )} 
+        {!isEliteMember && (
           <Box
             bgColor={"brand.500"}
             color={"#fff"}

@@ -6,7 +6,7 @@ import Carousel from "../components/Carousel";
 import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ScrollToTop from "../components/ScrollToTop";
-import ProductListSection from "../components/ProductListSection";
+import SecondProductListSection from "../components/SecondProductListSection"
 import {
   Container,
   Flex,
@@ -351,6 +351,7 @@ export default function Home() {
   );
   // let [isFull] = useMediaQuery("(max-width:1920px)");
   const [blogs, setBlogs] = useState([]);
+  const [statisticsSection, setStatisticsSection] = useState([]);
   const isMobiles = width <= 768;
   const navigate = useNavigate();
   useEffect(() => {
@@ -367,19 +368,21 @@ export default function Home() {
     setLoading(false);
     getLowerSection();
     getUpper();
+    getStatisticsSection();
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
   }, []);
 
-  // async function getHomePageData() {
-  //   const response = await client.get("/home");
-  //   if (response.data.status === true) {
-  //     setBanners(response.data.banners);
-  //     setHome(response.data);
-  //   }
-  //   setLoading(false);
-  // }
+  async function getStatisticsSection() {
+    const params = {};
+    const response = await client.get("/statistics-section/", {
+      params: params,
+    });
+    if (response.data.status === true) {
+      setStatisticsSection(response?.data?.data);
+    }
+  }
   async function getBanners() {
     setLoading(true);
     try {
@@ -519,7 +522,7 @@ export default function Home() {
         )}
       </Container> */}
 
-       <Container maxW={"container.xl"} px={0}>
+      <Container maxW={"container.xl"} px={0}>
         {loading === true ? (
           <Skeleton h={489}></Skeleton>
         ) : (
@@ -530,6 +533,7 @@ export default function Home() {
 
       {AboutSection?.length > 0 &&
         AboutSection[0]?.is_visible_on_website === true && (
+          <>
           <Container maxW={"container.xl"} mb={8} px={0}>
             <Text
               fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
@@ -540,7 +544,7 @@ export default function Home() {
               py={4}
               //my={3}
             >
-              { AboutSection[0]?.label}
+              {AboutSection[0]?.label}
             </Text>
             <Text
               color={"text.300"}
@@ -549,32 +553,33 @@ export default function Home() {
               px={{ base: 15, lg: 20 }}
               mt={12}
               fontSize={{ base: "sm", lg: "md" }}
+              whiteSpace={"pre-line"}
             >
               {AboutSection[0]?.description}
             </Text>
           </Container>
+          <Container centerContent>
+          <Button
+            variant={"outline"}
+            borderColor={"text.500"}
+            _hover={{ bgColor: "text.500", color: "white" }}
+            borderRadius={"22px"}
+            border={"1px"}
+            onClick={() => navigate(`/about-us`)}
+            color={"text.500"}
+          >
+            {" "}
+            Read More{" "}
+          </Button>
+        </Container>
+        </>
         )}
-      <Container centerContent>
-        <Button
-          variant={"outline"}
-          borderColor={"text.500"}
-          _hover={{ bgColor: "text.500", color: "white" }}
-          borderRadius={"22px"}
-          border={"1px"}
-          onClick={() => navigate(`/about-us`)}
-          color={"text.500"}
-        >
-          {" "}
-          Read More{" "}
-        </Button>
-      </Container>
+      
       {CertificateSection?.length > 0 &&
         CertificateSection[0]?.is_visible_on_website === true && (
           <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
             <LazyLoadImage
-              src={
-               CertificateSection[0]?.image
-              }
+              src={CertificateSection[0]?.image}
               alt=""
               style={{
                 opacity: 1,
@@ -585,17 +590,15 @@ export default function Home() {
         )}
       {BestsallerSection?.length > 0 &&
         BestsallerSection[0]?.is_visible_on_website === true && (
-          <ProductListSection
+          <SecondProductListSection
             title={BestsallerSection[0]?.label}
             loading={loading}
             //image={new_arrival_gir_gauveda.image1}
-            products={
-              
-              BestsallerSection[0]?.images
-            }
+            products={BestsallerSection[0]?.images}
+            type={isMobile && "carousal"}
           />
         )}
-       <Container maxW={"container.xl"} px={0}>
+      <Container maxW={"container.xl"} px={0}>
         {loading === true ? (
           <Skeleton h={489}></Skeleton>
         ) : (
@@ -603,7 +606,6 @@ export default function Home() {
         )}
         {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
-
 
       <Container maxW={"container.xl"}>
         <Heading color="brand.500" size="lg" mx="auto" align={"center"} mt={3}>
@@ -668,6 +670,8 @@ export default function Home() {
           ))}
         </Grid>
       </Container>
+      {statisticsSection?.length > 0 &&
+        statisticsSection[0]?.is_visible_on_website === true && (
       <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
         <SimpleGrid
           columns={[2, 3, null, 4]}
@@ -679,41 +683,21 @@ export default function Home() {
           spacingX={{ base: "10vw", md: "30px" }}
           spacingY="40px"
         >
-          <Stat>
-            <StatNumber color="brand.400" fontSize={{ base: "3xl", md: "3xl" }}>
-              17+
-            </StatNumber>
-            <StatHelpText color="brand.400">Natural Products</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="brand.400" fontSize={{ base: "3xl", md: "3xl" }}>
-              5023+
-            </StatNumber>
-            <StatHelpText color="brand.400">Satisfied Clients</StatHelpText>
-          </Stat>
-
-          <Stat>
-            <StatNumber color="brand.400" fontSize={{ base: "3xl", md: "3xl" }}>
-              17+
-            </StatNumber>
-            <StatHelpText color="brand.400">Stores</StatHelpText>
-          </Stat>
-          <Stat>
-            <StatNumber color="brand.400" fontSize={{ base: "3xl", md: "3xl" }}>
-              30+
-            </StatNumber>
-            <StatHelpText color="brand.400">Countries</StatHelpText>
-          </Stat>
-
-          {/* <Stat>
-            <StatNumber color="text.300" fontSize={{ base: "3xl", md: "3xl" }}>
-              11<sup>th</sup>
-            </StatNumber>
-            <StatHelpText color="gray.600">Generation of Farmers</StatHelpText>
-          </Stat> */}
+          {statisticsSection?.length > 0 &&
+                statisticsSection?.map((data) => (
+                  <Stat>
+                    <StatNumber
+                      color="brand.400"
+                      fontSize={{ base: "3xl", md: "3xl" }}
+                    >
+                      {data?.value}
+                    </StatNumber>
+                    <StatHelpText color="gray.600">{data?.name}</StatHelpText>
+                  </Stat>
+                ))}
+          
         </SimpleGrid>
-      </Container>
+      </Container>)}
       {awardsSection?.length > 0 &&
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
@@ -741,10 +725,7 @@ export default function Home() {
               pb={6}
             >
               <LazyLoadImage
-                src={
-                 
-                  awardsSection[0]?.images[0]?.image
-                }
+                src={awardsSection[0]?.images[0]?.image}
                 alt="global-certificate"
                 style={{
                   opacity: 1,
@@ -752,10 +733,7 @@ export default function Home() {
                 }}
               />
               <LazyLoadImage
-                src={
-                  
-                  awardsSection[0]?.images[1]?.image
-                }
+                src={awardsSection[0]?.images[1]?.image}
                 alt="ciolook-certificate"
                 style={{
                   opacity: 1,
@@ -768,11 +746,7 @@ export default function Home() {
       {NonGmoSection?.length > 0 &&
         NonGmoSection[0]?.is_visible_on_website === true && (
           <Container maxW={"5xl"} mt={5}>
-            <Image
-              src={
-                NonGmoSection[0]?.image
-              }
-            />
+            <Image src={NonGmoSection[0]?.image} />
           </Container>
         )}
       {servicesSection?.length > 0 &&
@@ -791,10 +765,7 @@ export default function Home() {
 
             <Box display={"flex"} justifyContent={"center"}>
               <LazyLoadImage
-                src={
-                  
-                  servicesSection[0]?.images[0].image
-                }
+                src={servicesSection[0]?.images[0].image}
                 w={{ base: "100%", md: "100%" }}
                 alt=""
                 py={4}
@@ -821,10 +792,7 @@ export default function Home() {
             </Heading>
 
             <Image
-              src={
-                
-                availableSection[0]?.images[0].image
-              }
+              src={availableSection[0]?.images?.length > 0 && availableSection[0]?.images[0].image}
               w={"container.xl"}
               alt=""
               style={{

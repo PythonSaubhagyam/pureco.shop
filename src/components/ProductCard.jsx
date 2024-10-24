@@ -12,13 +12,17 @@ import { Link, useNavigate } from "react-router-dom";
 export default function ProductCard({ product }) {
   const navigate = useNavigate();
   return (
-    <Card
-      w={{ base: "80vw", sm: "3xs", lg: "2xs" }}
+     <Card
+    //   w={{ base: "90vw", sm: "xs" }}
+     // w= {{ base: "80vw", lg: "18vw" }}
+     w= {{ base: "80vw", lg: "93%" }}
+      //  maxW="container.xl"
+      //  mx="auto"
       border="1px"
       borderColor="brand.100"
       borderRadius={"lg"}
       onClick={() => {
-        window.location.href = `/products/${product.product}`;
+        window.location.href = `/products/${product.id}`;
         // navigate(),
         //   window.scrollTo({
         //     top: 0,
@@ -30,8 +34,8 @@ export default function ProductCard({ product }) {
     >
       <CardBody backgroundColor={"white"} borderRadius="lg">
         <Image
-          src={product.image ? product.image : product.image1}
-          alt={product.product_name}
+          src={product.home_image ? product.home_image : product.image1}
+          alt={product.name}
           borderRadius="lg"
           boxSize="150px"
           objectFit={"contain"}
@@ -56,14 +60,14 @@ export default function ProductCard({ product }) {
             mb={3}
             noOfLines={3}
             fontWeight="500"
-            title={product.product_name}
+            title={product.name}
           >
-            {product.product_name}
+            {product.name}
           </Heading>
         </Box>
         <Button
           as={Link}
-          to={`/products/${product.product}`}
+          to={`/products/${product.id}`}
           fontSize="sm"
           w={{ base: "100%", lg: "80%" }}
           mx="auto"

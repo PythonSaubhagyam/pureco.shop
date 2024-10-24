@@ -248,6 +248,32 @@ export default function Shop() {
   //   setFilteredData(filtered);
   // }, [data, categoryId]);
 
+  useEffect(() => {
+    setCurrentPage(1);
+    const params = {
+      page: 1,
+    };
+
+    if (categoryId) {
+      params.category = categoryId;
+      
+    }
+    if(category_name){
+      params.category_name = category_name;
+    }
+    if (searchPar.get("brand")) {
+      params.brand = brand;
+      params.brand_name = brand_name;
+    }
+
+    if (prod_search !== null) {
+      params.search = prod_search;
+    }
+
+    setSearchParams(params);
+   
+  }, [sortKey,tagWise, productFoam]);
+
   async function handlePageChange(nextPage) {
     setCurrentPage(nextPage);
     getProducts(nextPage);
