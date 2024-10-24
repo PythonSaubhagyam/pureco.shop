@@ -584,6 +584,7 @@ export default function Home() {
               style={{
                 opacity: 1,
                 transition: "opacity 0.7s", // Note the corrected syntax here
+                width:"100%"
               }}
             />
           </Container>

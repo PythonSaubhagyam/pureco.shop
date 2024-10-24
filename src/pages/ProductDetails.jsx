@@ -726,7 +726,7 @@ export default function ProductDetails() {
             </Container>
           )}
 
-          <ProductListSection
+         {relatedProducts?.length > 0 && <ProductListSection
             title="Related Products"
             products={relatedProducts}
             loading={loading}
@@ -734,24 +734,24 @@ export default function ProductDetails() {
             fontSize={{ base: "sm", lg: "md" }}
             type={"carousal"}
           />
-
-          <ProductListSection
+}
+          {otherProducts?.length > 0 && <ProductListSection
             title="Other Products"
             products={otherProducts}
             justify="center"
             loading={loading}
             fontSize={{ base: "sm", lg: "md" }}
             type={"carousal"}
-          />
+          />}
 
-          <ProductListSection
+          {recentlyViewedProducts?.length > 0 && <ProductListSection
             title="Recently Viewed Products"
             products={recentlyViewedProducts}
             justify="center"
             loading={loading}
             fontSize={{ base: "sm", lg: "md" }}
             type={"carousal"}
-          />
+          />}
 
           <Modal
             size={"xl"}
