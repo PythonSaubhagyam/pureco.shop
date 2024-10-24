@@ -331,14 +331,19 @@ export default function Home() {
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
   const [banners, setBanners] = useState([]);
+  const [Mbanners, setMBanners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isMobile] = useMediaQuery("(max-width: 480px)");
   const [homeData, setHome] = useState({});
   const [sections, setSections] = useState([]);
-  const [awardsSection, setAwardSection] = useState();
-  const [servicesSection, setServicesSection] = useState();
-  const [availableSection, setAvailableSection] = useState();
+  const [awardsSection, setAwardSection] = useState([]);
+  const [servicesSection, setServicesSection] = useState([]);
+  const [availableSection, setAvailableSection] = useState([]);
+  const [CertificateSection, setCertificateSection] = useState([]);
+  const [NonGmoSection, setNonGmoSection] = useState([]);
+  const [BestsallerSection, setBestsallerSection] = useState([]);
   const loginInfo = checkLogin();
+  const [AboutSection, setAboutSection] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const checkOrSetUDIDInfo = CheckOrSetUDID();
   const [showPopup, setShowPopup] = useState(
@@ -351,14 +356,17 @@ export default function Home() {
   useEffect(() => {
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
+    };
+
     init();
-  
+
     //getHomePageData();
+    getBanners();
+    getMBanners();
     getBlogs();
-    setLoading(false)
+    setLoading(false);
     getLowerSection();
+    getUpper();
     if (showPopup === null && !loginInfo.isLoggedIn) {
       setIsLoginModalOpen(true);
     }
@@ -372,6 +380,38 @@ export default function Home() {
   //   }
   //   setLoading(false);
   // }
+  async function getBanners() {
+    setLoading(true);
+    try {
+      const response = await client.get("/ecommerce/banners/?sequence=Upper");
+
+      if (response.data.status === true) {
+        setBanners(response?.data?.banner);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  async function getMBanners() {
+    setLoading(true);
+    try {
+      const response = await client.get("/ecommerce/banners/?sequence=Middle");
+
+      if (response.data.status === true) {
+        setMBanners(response?.data?.banner);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      console.error("Error fetching data:", error);
+    }
+  }
+
   async function getBlogs() {
     const params = {};
     const response = await client.get("/home/blogs/", {
@@ -388,7 +428,7 @@ export default function Home() {
     });
     if (response.data.status === true) {
       setSections(response.data.data);
-     
+
       const ourServicesSection = response.data.data?.filter(
         (section) => section.id === 2
       );
@@ -398,14 +438,36 @@ export default function Home() {
       const ourAwardsSection = response.data.data?.filter(
         (section) => section.id === 1
       );
-     
+
       setAwardSection(ourAwardsSection);
       setServicesSection(ourServicesSection);
       setAvailableSection(availableAtSection);
-     
     }
   }
 
+  const getUpper = async () => {
+    const response = await client.get("/pureco-section");
+    if (response.data.status === true) {
+      setSections(response.data.data);
+      const ourAboutSection = response.data.data?.filter(
+        (section) => section.id === 1
+      );
+      const ourCertificateSection = response.data.data?.filter(
+        (section) => section.id === 2
+      );
+      const ourBestsallerSection = response.data.data?.filter(
+        (section) => section.id === 3
+      );
+      const ourNonGmoSection = response.data.data?.filter(
+        (section) => section.id === 4
+      );
+
+      setAboutSection(ourAboutSection);
+      setCertificateSection(ourCertificateSection);
+      setBestsallerSection(ourBestsallerSection);
+      setNonGmoSection(ourNonGmoSection);
+    }
+  };
 
   const new_arrival_gir_gauveda = [
     // {
@@ -457,55 +519,41 @@ export default function Home() {
         )}
       </Container> */}
 
-      <Container maxW={"container.xl"} px={0}>
-        <Carousel
-          banners={[
-            {
-              image: "./Pureco/Home/banner 2.jpg",
-              alt_text: "sweet1",
-            },
-            {
-              image: "./Pureco/Home/banner 1.jpg",
-              alt_text: "sweet2",
-            },
-            {
-              image: "./Pureco/Home/banner 3.jpg",
-              alt_text: "sweet2",
-            },
-          ]}
-        />
+       <Container maxW={"container.xl"} px={0}>
+        {loading === true ? (
+          <Skeleton h={489}></Skeleton>
+        ) : (
+          <Carousel banners={banners?.length > 0 && banners} />
+        )}
+        {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
 
-     
-      <Container maxW={"container.xl"} mb={8} mt={2} px={0}>
-      <Text
-          fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
-          fontWeight={500}
-          bgColor={"bg.500"}
-          textAlign={{ base: "center", md: "start" }}
-          px={{ base: 2, md: 8 }}
-          py={4}
-          my={3}
-        >
-          About Pureco
-        </Text>
-        <Text
-          color={"text.300"}
-          textAlign={"justify"}
-          justifyContent={"justify"}
-          px={{ base: 15, lg: 20 }}
-          mt={12}
-          fontSize={{ base: "sm", lg: "md" }}
-        >
-          PURECO draws inspiration from Bansi GIR Gaushala, and its work towards
-          reviving Bharat’s ancient “Gau Sanskriti”. We believe ancient Bharat{" "}
-          holds the solution to many of the challenges facing humanity today.
-          The daily essential materials have been produced in PURECO using
-          bamboo and neem wood.PURECO produces toothbrushes from bamboo and neem
-          wood Baby Spoon , Comb- Regular, Comb- Without handle, Cooking Ladle -
-          Compact Flip, fork spoon, spoon, large cake serve.
-        </Text>
-      </Container>
+      {AboutSection?.length > 0 &&
+        AboutSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"container.xl"} mb={8} px={0}>
+            <Text
+              fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+              fontWeight={500}
+              bgColor={"bg.500"}
+              textAlign={{ base: "center", md: "start" }}
+              px={{ base: 2, md: 8 }}
+              py={4}
+              //my={3}
+            >
+              { AboutSection[0]?.label}
+            </Text>
+            <Text
+              color={"text.300"}
+              textAlign={"justify"}
+              justifyContent={"justify"}
+              px={{ base: 15, lg: 20 }}
+              mt={12}
+              fontSize={{ base: "sm", lg: "md" }}
+            >
+              {AboutSection[0]?.description}
+            </Text>
+          </Container>
+        )}
       <Container centerContent>
         <Button
           variant={"outline"}
@@ -513,69 +561,52 @@ export default function Home() {
           _hover={{ bgColor: "text.500", color: "white" }}
           borderRadius={"22px"}
           border={"1px"}
-          href="/about-us"
+          onClick={() => navigate(`/about-us`)}
           color={"text.500"}
         >
           {" "}
           Read More{" "}
         </Button>
       </Container>
-
-      <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
-        <LazyLoadImage
-          src={ "./Pureco/Home/pureco_certificate.jpg"
-          }
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
+      {CertificateSection?.length > 0 &&
+        CertificateSection[0]?.is_visible_on_website === true && (
+          <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
+            <LazyLoadImage
+              src={
+               CertificateSection[0]?.image
+              }
+              alt=""
+              style={{
+                opacity: 1,
+                transition: "opacity 0.7s", // Note the corrected syntax here
+              }}
+            />
+          </Container>
+        )}
+      {BestsallerSection?.length > 0 &&
+        BestsallerSection[0]?.is_visible_on_website === true && (
+          <ProductListSection
+            title={BestsallerSection[0]?.label}
+            loading={loading}
+            //image={new_arrival_gir_gauveda.image1}
+            products={
+              
+              BestsallerSection[0]?.images
+            }
+          />
+        )}
+       <Container maxW={"container.xl"} px={0}>
+        {loading === true ? (
+          <Skeleton h={489}></Skeleton>
+        ) : (
+          <Carousel banners={Mbanners?.length > 0 && Mbanners} />
+        )}
+        {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
-     
-      <ProductListSection
-         title="Best Seller: PURECO Products"
-        loading={loading}
-        //image={new_arrival_gir_gauveda.image1}
-        products={new_arrival_gir_gauveda}
-      />
 
-      <Container maxW={"container.xl"} px={0}>
-        <Carousel
-          banners={[
-            {
-              image: "./Pureco/Home/mid banner 1.jpg",
-              alt_text: "sweet1",
-              image_url: "/shop?page=1&category=492",
-            },
-            {
-              image: "./Pureco/Home/mid banner 2.jpg",
-              alt_text: "sweet2",
-              image_url: "/shop?page=1&category=492",
-            },
-            // {
-            //   image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/HomePage/sweet/4.jpg",
-            //   alt_text: "sweet3",
-            //   image_url: "/shop?page=1&category=492",
-            // },
-            {
-              image: "./Pureco/Home/mid banner 3.jpg",
-              alt_text: "sweet4",
-              image_url: "/shop?page=1&category=492",
-            },
-          ]}
-        />
-      </Container>
 
       <Container maxW={"container.xl"}>
-        <Heading
-          color="brand.500"
-          size="lg"
-          mx="auto"
-          align={"center"}
-          mt={3}
-         
-        >
+        <Heading color="brand.500" size="lg" mx="auto" align={"center"} mt={3}>
           BLOGS
         </Heading>
 
@@ -686,18 +717,17 @@ export default function Home() {
       {awardsSection?.length > 0 &&
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
-                mx="auto"
-                align={"center"}
-                mt={3}
-                pb={"10px"}
-              >
-                {awardsSection?.length > 0 && awardsSection[0]?.label}
-              </Heading>
-           
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              mt={3}
+              pb={"10px"}
+            >
+              {awardsSection[0]?.label}
+            </Heading>
+
             <Text my={5} textAlign={"center"} color="text.300">
               We are committed to quality and each of our facilities is
               independently certified by an industry-accredited agency.
@@ -712,7 +742,7 @@ export default function Home() {
             >
               <LazyLoadImage
                 src={
-                  awardsSection[0]?.images?.length > 0 &&
+                 
                   awardsSection[0]?.images[0]?.image
                 }
                 alt="global-certificate"
@@ -723,7 +753,7 @@ export default function Home() {
               />
               <LazyLoadImage
                 src={
-                  awardsSection[0]?.images?.length > 0 &&
+                  
                   awardsSection[0]?.images[1]?.image
                 }
                 alt="ciolook-certificate"
@@ -735,30 +765,34 @@ export default function Home() {
             </Flex>
           </Container>
         )}
-
-        <Container maxW={"5xl"} mt={5}>
-          <Image src="./Pureco/Home/pureco.jpg" alt="imag" />
-        </Container>
-
-        {servicesSection?.length > 0 &&
+      {NonGmoSection?.length > 0 &&
+        NonGmoSection[0]?.is_visible_on_website === true && (
+          <Container maxW={"5xl"} mt={5}>
+            <Image
+              src={
+                NonGmoSection[0]?.image
+              }
+            />
+          </Container>
+        )}
+      {servicesSection?.length > 0 &&
         servicesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
-           
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 20 }}
-                mx="auto"
-                align={"center"}
-                my={"5"}
-                pb={"10px"}
-              >
-                {servicesSection?.length > 0 && servicesSection[0].label}
-              </Heading>
-           
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 20 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {servicesSection[0].label}
+            </Heading>
+
             <Box display={"flex"} justifyContent={"center"}>
               <LazyLoadImage
                 src={
-                  servicesSection?.length > 0 &&
+                  
                   servicesSection[0]?.images[0].image
                 }
                 w={{ base: "100%", md: "100%" }}
@@ -772,24 +806,23 @@ export default function Home() {
             </Box>
           </Container>
         )}
-        {availableSection?.length > 0 &&
+      {availableSection?.length > 0 &&
         availableSection[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} mb={5} px={0} centerContent>
-            
-              <Heading
-                color="brand.500"
-                fontSize={{ md: 33, base: 22 }}
-                mx="auto"
-                align={"center"}
-                my={"5"}
-                pb={"10px"}
-              >
-                {availableSection?.length > 0 && availableSection[0].label}
-              </Heading>
-            
+            <Heading
+              color="brand.500"
+              fontSize={{ md: 33, base: 22 }}
+              mx="auto"
+              align={"center"}
+              my={"5"}
+              pb={"10px"}
+            >
+              {availableSection[0].label}
+            </Heading>
+
             <Image
               src={
-                availableSection?.length > 0 &&
+                
                 availableSection[0]?.images[0].image
               }
               w={"container.xl"}
@@ -801,13 +834,13 @@ export default function Home() {
             />
           </Container>
         )}
-         {!checkLogin().isLoggedIn && (
+      {!checkLogin().isLoggedIn && (
         <LoginModal
           isOpen={isLoginModalOpen}
           onClose={() => setIsLoginModalOpen(false)}
         />
       )}
-      <ScrollToTop/>
+      <ScrollToTop />
       <Footer />
       {/* </>
       )} */}
