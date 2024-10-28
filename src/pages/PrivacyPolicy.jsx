@@ -19,7 +19,7 @@ const PrivacyPolicy = () => {
         />{" "}
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0} centerContent>
-        <Image src={"/Pureco/Privacy-policy/Privacy_Policy.jpg"} />
+        <Image src={"/Pureco/Privacy-policy/Privacy_Policy.jpg"}width="100%" />
         <VStack maxW={"6xl"} my={8} px={6}>
           <Box color={"text.300"} textAlign={"justify"}>
             We at Suryan Organic are committed to protecting and safe guarding
