@@ -42,8 +42,8 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import CarouselLoginModal from "./CarouselLoginModal";
 
 const imageList = [
-  "/Pureco/Login/banner2.jpeg",
-  "/Pureco/Login/banner1.jpeg",
+  "https://s3organicbucket.s3.amazonaws.com/master/Products/images/login_popup_image2.jpeg",
+ "https://s3organicbucket.s3.amazonaws.com/master/Products/images/login_popup_image1.jpeg"
 ];
 
 const LoginModal = ({ isOpen, onClose, onOpen }) => {
