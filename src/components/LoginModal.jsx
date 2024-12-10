@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   Modal,
@@ -193,7 +192,7 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
         if (response.data.data.is_staff || response.data.data.is_superuser) {
           localStorage.setItem("id", response.data.data.id);
           localStorage.setItem("access", true);
-          if (location.pathname === "/signup") {
+          if (location.pathname === "/signup" || location.pathname ==="/reset-password") {
             navigate("/shop", { replace: true });
             onClose();
           } else {
@@ -201,7 +200,7 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
           }
         } else {
           // setTimeout(() => {
-          if (location.pathname === "/signup") {
+          if (location.pathname === "/signup" || location.pathname ==="/reset-password") {
             navigate("/", { replace: true });
             onClose();
           } else {
@@ -305,14 +304,14 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
             ) {
               localStorage.setItem("id", response.data.data.id);
               localStorage.setItem("access", true);
-              if (location.pathname === "/signup") {
+              if (location.pathname === "/signup" || location.pathname ==="/reset-password") {
                 navigate("/shop", { replace: true });
                 onClose();
               } else {
                 onClose();
               }
             } else {
-              if (location.pathname === "/signup") {
+              if (location.pathname === "/signup" || location.pathname ==="/reset-password") {
                 navigate("/", { replace: true });
                 onClose();
               } else {
@@ -471,10 +470,8 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
                             responseStatus === false
                           ) {
                             handleOTPSubmit();
-                            console.log("11111111");
                           } else {
                             handleMobileSubmit();
-                            console.log("2222222222");
                           }
                         }}
                         flexDirection={"column"}
@@ -633,8 +630,8 @@ const LoginModal = ({ isOpen, onClose, onOpen }) => {
                               size={"sm"}
                               borderColor={"brand.900"}
                               placeholder="Email"
-                              autoComplete="username"
                               value={email}
+                              autoComplete="username"
                               onChange={(e) => setEmail(e.target.value)}
                             />
                           </FormControl>
