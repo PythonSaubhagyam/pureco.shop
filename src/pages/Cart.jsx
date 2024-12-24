@@ -100,6 +100,13 @@ export default function Cart() {
   }
 
   useEffect(() => {
+    const loginInfo = checkLogin();
+    if (loginInfo.isLoggedIn) {
+      getCart(); 
+    }
+  }, [checkLogin().isLoggedIn]);
+
+  useEffect(() => {
     getCart(); // eslint-disable-next-line
   }, []);
 
