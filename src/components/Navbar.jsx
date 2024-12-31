@@ -279,8 +279,8 @@ export default function Navbar() {
   useEffect(() => {
     const init = async () => {
       await CheckOrSetUDID();
-       };
-  
+    };
+
     init();
     //getMegaCategories();
   }, []);
@@ -432,7 +432,7 @@ export default function Navbar() {
   const Logout = () => {
     localStorage.clear();
     CartEmitter.emit("updateCartCount", 0);
-    CartEmitter.emit("updateProductTotal",0);
+    CartEmitter.emit("updateProductTotal", 0);
     toast({
       title: "Logged out successfully!",
       status: "success",
@@ -603,7 +603,7 @@ export default function Navbar() {
                     _hover={{ bg: "brand.500" }}
                   > */}
                   <MenuItem
-                    onClick={()=>setIsLoginModalOpen(true)}
+                    onClick={() => setIsLoginModalOpen(true)}
                     cursor={"pointer"}
                     _hover={{ textDecoration: "none" }}
                   >
@@ -695,7 +695,11 @@ export default function Navbar() {
                                     setOpenAccrodion();
                                   } else {
                                     navigate(
-                                      `/shop?page=1&category=${section.id}&category_name=${encodeURIComponent(section?.name)}`
+                                      `/shop?page=1&category=${
+                                        section.id
+                                      }&category_name=${encodeURIComponent(
+                                        section?.name
+                                      )}`
                                     );
                                     setAccordion(!isOpen);
                                     onClose();
@@ -758,7 +762,11 @@ export default function Navbar() {
                                                     setOpen(Open);
                                                   } else {
                                                     navigate(
-                                                      `/shop?page=1&category=${subcategory.id}&category_name=${encodeURIComponent(subcategory?.name)}`
+                                                      `/shop?page=1&category=${
+                                                        subcategory.id
+                                                      }&category_name=${encodeURIComponent(
+                                                        subcategory?.name
+                                                      )}`
                                                     );
                                                     setAccordion(!isOpen);
                                                     onClose();
@@ -776,7 +784,11 @@ export default function Navbar() {
                                                 <AccordionIcon
                                                   onClick={() =>
                                                     navigate(
-                                                      `/shop?page=1&category=${subcategory.id}&category_name=${encodeURIComponent(subcategory?.name)}`
+                                                      `/shop?page=1&category=${
+                                                        subcategory.id
+                                                      }&category_name=${encodeURIComponent(
+                                                        subcategory?.name
+                                                      )}`
                                                     )
                                                   }
                                                   display={
@@ -809,7 +821,11 @@ export default function Navbar() {
                                                           key={i}
                                                           onClick={() => {
                                                             navigate(
-                                                              `/shop?page=1&category=${children.id}&category_name=${encodeURIComponent(children?.name)}`
+                                                              `/shop?page=1&category=${
+                                                                children.id
+                                                              }&category_name=${encodeURIComponent(
+                                                                children?.name
+                                                              )}`
                                                             );
                                                             onClose();
                                                           }}
@@ -1072,7 +1088,7 @@ export default function Navbar() {
                     }}
                     fontWeight={500}
                     fontSize={{ md: "14px" }}
-                    onClick={() =>setIsLoginModalOpen(true)}
+                    onClick={() => setIsLoginModalOpen(true)}
                   >
                     Login
                   </Link>
@@ -1141,18 +1157,24 @@ export default function Navbar() {
                     {megaCategories?.map((section, index) => (
                       <>
                         <MenuItem
-                          icon={
-                            <img
-                              src={"./himalayan_logo.jpg"}
-                              width={25}
-                              alt=""
-                            />
-                          }
+                          // icon={
+                          //   <img
+                          //     src={"./himalayan_logo.jpg"}
+                          //     width={25}
+                          //     alt=""
+                          //   />
+                          // }
                           fontSize={"14"}
                           key={index}
                           onMouseEnter={() => handleShow1(section.children)}
                           onClick={() =>
-                            navigate(`/shop?category=${section.id}&category_name=${encodeURIComponent(section?.name)}`)
+                            navigate(
+                              `/shop?category=${
+                                section.id
+                              }&category_name=${encodeURIComponent(
+                                section?.name
+                              )}`
+                            )
                           }
                           sx={{
                             "&:hover": {
@@ -1174,7 +1196,13 @@ export default function Navbar() {
                       <MenuItem
                         fontSize={"14"}
                         key={subIndex}
-                        onClick={() => navigate(`/shop?category=${item.id}&category_name=${encodeURIComponent(item?.name)}`)}
+                        onClick={() =>
+                          navigate(
+                            `/shop?category=${
+                              item.id
+                            }&category_name=${encodeURIComponent(item?.name)}`
+                          )
+                        }
                         onMouseEnter={() => handleShow2(item.children)}
                         sx={{
                           "&:hover": {
@@ -1192,7 +1220,13 @@ export default function Navbar() {
                       <MenuItem
                         fontSize={"14"}
                         key={nestedIndex}
-                        onClick={() => navigate(`/shop?category=${item.id}&category_name=${encodeURIComponent(item?.name)}`)}
+                        onClick={() =>
+                          navigate(
+                            `/shop?category=${
+                              item.id
+                            }&category_name=${encodeURIComponent(item?.name)}`
+                          )
+                        }
                         sx={{
                           "&:hover": {
                             backgroundColor: "brand.500",
@@ -1243,11 +1277,13 @@ export default function Navbar() {
               _hover={{ color: "text.500" }}
               isExternal={true}
               as={ReactRouterLink}
-              to={"https://api.whatsapp.com/send/?phone=7405095969&text&type=phone_number&app_absent=0"}
+              to={
+                "https://api.whatsapp.com/send/?phone=7405095969&text&type=phone_number&app_absent=0"
+              }
             >
               <FaWhatsapp fontSize={20} />
-            </Link> 
-           
+            </Link>
+
             <Link
               // _hover={{ color: "text.500" }}
               isExternal={true}
