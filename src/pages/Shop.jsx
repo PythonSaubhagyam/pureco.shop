@@ -36,6 +36,9 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import { Select } from "chakra-react-select";
 import CapitalizeLetter from "../utils/CommanFunction";
 
+//redux
+import { fetchFilters } from "../redux/slices/shopApi";
+import { useDispatch, useSelector } from "react-redux";
 // import Paginator from "../components/Paginator";
 
 export default function Shop() {
@@ -46,9 +49,6 @@ export default function Shop() {
   const [filteredData, setFilteredData] = useState([]);
   const [sortKey, setSortKey] = useState(null);
   const [tagWise, setTagWise] = useState(null);
-  const [tagsArray, setTagsArray] = useState();
-  const [productFoamsArray, setProductFoamsArray] = useState();
-  const [brandArray, setBrandArray] = useState();
   const [productFoam, setProductFoam] = useState(null);
 
   const [banners, setBanners] = useState({
@@ -83,6 +83,13 @@ export default function Shop() {
   });
   const category_name = new URLSearchParams(search).get("category_name");
 
+  const dispatch = useDispatch();
+  const { tagsArray,productFoamsArray,brandArray} = useSelector(state => state.shop);
+  useEffect(() => {
+    dispatch(fetchFilters());
+  }, [dispatch]);
+
+
   let headers = { visitor: CheckOrSetUDID()?.visitor_id };
   const loginInfo = checkLogin();
   if (loginInfo.isLoggedIn === true) {
@@ -94,14 +101,10 @@ export default function Shop() {
   ].join(" ");
 
   useEffect(() => {
-    getFilter();
     CheckOrSetUDID();
     getProducts(); // eslint-disable-next-line
   }, [categoryId, sortKey, prod_search, brand, tagWise, productFoam]);
 
-  // useEffect(() => {
-  //   getCategories();
-  // }, []);
 
   async function getProducts(nextPage) {
     setLoading(true);
@@ -191,53 +194,6 @@ export default function Shop() {
     }
   }
 
-  async function getCategories() {
-    setCatLoading(true);
-    const response = await client.get("/categories/?mega_menu=mega_menu", {
-      params: { list: true },
-    });
-    if (response.data.status === true) {
-      setCategories(response.data.categories);
-      setCatLoading(false);
-    }
-  }
-
-  async function getFilter() {
-    try {
-      const [tagsResponse, foamsResponse, brandResponse] = await Promise.all([
-        client.get("/web/product-tags/list/"),
-        client.get("/web/product-foams/list/"),
-        client.get("/web/brand/list/"),
-      ]);
-
-      let TagsArray = [];
-      tagsResponse?.data?.data?.map((data) =>
-        TagsArray.push({
-          label: CapitalizeLetter(data.name),
-          value: data.id,
-        })
-      );
-      setTagsArray(TagsArray);
-      let ProductFoamsArray = [];
-      foamsResponse?.data?.data?.map((data) =>
-        ProductFoamsArray.push({
-          label: CapitalizeLetter(data.name),
-          value: data.id,
-        })
-      );
-      setProductFoamsArray(ProductFoamsArray);
-      let BrandArray = [];
-      brandResponse?.data?.data?.map((data) =>
-        BrandArray.push({
-          label: CapitalizeLetter(data.name),
-          value: data.id,
-        })
-      );
-      setBrandArray(BrandArray);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  }
   useEffect(() => {
     const filtered = categories.filter((item) => item.id === categoryId);
     setFilteredData(filtered);
@@ -411,7 +367,7 @@ export default function Shop() {
       var elementChange = temp[index];
       elementChange.is_wished = !item.is_wished;
       setProducts(temp);
-      getProducts();
+      // getProducts();
     }
   };
   return (

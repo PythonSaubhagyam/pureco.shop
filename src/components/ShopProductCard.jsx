@@ -20,6 +20,9 @@ import { AiFillHeart, AiFillStar } from "react-icons/ai";
 import AddToCart from "../utils/addToCart";
 import React from "react";
 import { Fragment } from "react";
+import {
+  Link as ReactRouterLink,
+} from "react-router-dom";
 
 const BestSellerImg = require("/best seller1.png");
 
@@ -138,7 +141,8 @@ export default function ShopProductCard({
           //position={"absolute"}
         >
           <LinkOverlay
-            href={`/products/${productDetails.id}`}
+            as={ReactRouterLink}
+            to={`/products/${productDetails.id}`}
             fontSize="xs"
             fontWeight={600}
             color={"brand.500"}

@@ -66,6 +66,9 @@ import { FiInstagram } from "react-icons/fi";
 import { debounce } from "lodash";
 import CartEmitter from "./EventEmitter";
 import LoginModal from "./LoginModal";
+//redux
+import { fetchCategories } from "../redux/slices/categoryApi";
+import { useDispatch, useSelector } from "react-redux";
 
 const Links = [
   {
@@ -124,82 +127,6 @@ const Links = [
   //   // },
 ];
 
-const mainLinks = [
-  {
-    name: "Gifting",
-    categoryId: 288,
-  },
-  {
-    name: "GIR Gau Products",
-    categoryId: 278,
-  },
-  {
-    name: "Health Care",
-    categoryId: 281,
-  },
-  {
-    name: "Personal Care",
-    categoryId: 344,
-  },
-  {
-    name: "Nutrition",
-    categoryId: 788,
-  },
-
-  {
-    name: "Grocery",
-    categoryId: 291,
-  },
-  {
-    name: "Healthy Breakfast",
-    categoryId: 775,
-  },
-  {
-    name: "Healthy Snacks",
-    categoryId: 317,
-  },
-  {
-    name: "Healthy Powder",
-    categoryId: 716,
-  },
-  {
-    name: "Chocolate & Bars",
-    categoryId: 773,
-  },
-  {
-    name: "Tea & Coffee",
-    categoryId: 769,
-  },
-  {
-    name: "Beverages",
-    categoryId: 772,
-  },
-  {
-    name: "Seasonal Foods",
-    categoryId: 290,
-  },
-  {
-    name: "World Foods",
-    categoryId: 771,
-  },
-  {
-    name: "Home Care",
-    categoryId: 347,
-  },
-
-  // {
-  //   name: "Super Food",
-  //   categoryId: 601,
-  // },
-
-  // {
-  //   name: "Sweetener",
-  //   categoryId: 774,
-  // },
-
-  ,
-];
-
 export default function Navbar() {
   let { search } = useLocation();
 
@@ -235,7 +162,7 @@ export default function Navbar() {
   const handleCloseCategory = (index) => {
     setOpenCategory();
   };
-  const [categories, setCategories] = useState([]);
+  // const [categories, setCategories] = useState([]);
   const [categoriesLastIndex, setCategoriesLastIndex] = useState(0);
   const [subCategories, setSubCategories] = useState([]);
   const [openOuterAccordion, setOpenOuterAccordion] = useState(false);
@@ -253,15 +180,25 @@ export default function Navbar() {
   const didMount = useRef(false);
   const [openSections, setOpenSections] = useState([]);
   const [openSubSections, setOpenSubSections] = useState([]);
-  const [megaCategories, setMegaCategories] = useState([]);
+  // const [megaCategories, setMegaCategories] = useState([]);
   const [megaSubCategories, setMegaSubCategories] = useState([]);
   const [nestedCategories, setNestedCategories] = useState([]);
   const [all, setAll] = useState(false);
 
   const [Open1, setOpen1] = useState(false);
+  
+  const dispatch = useDispatch()
+  const { categories,mergedCategories,hasFetched } = useSelector(
+   (state) => state.category
+ );
+ useEffect(() => {
+  if (!hasFetched) {
+    dispatch(fetchCategories());
+  }
+}, [dispatch, hasFetched]);
 
   const handleHover1 = () => {
-    if (megaCategories.length > 0) {
+    if (categories.length > 0) {
       setOpen(true);
     }
   };
@@ -280,20 +217,9 @@ export default function Navbar() {
     const init = async () => {
       await CheckOrSetUDID();
     };
-
     init();
-    //getMegaCategories();
   }, []);
 
-  const getMegaCategories = async () => {
-    const response = await client.get("/categories/?mega_menu=mega_menu", {
-      params: { list: true },
-    });
-
-    if (response.data.status === true) {
-      setMegaCategories(response.data.categories);
-    }
-  };
 
   const toggleSection = (index, section) => {
     setAll(false);
@@ -320,13 +246,6 @@ export default function Navbar() {
   }, [navigate]);
   const [isFlexVisible, setIsFlexVisible] = useState(true);
   const flexRef = useRef(null);
-  // const setCategoryFilter = async (categoryId) => {
-  //   if (JSON.parse(categoryId !== null)) {
-  //     setSearchParams({ category: categoryId });
-  //   } else {
-  //     setSearchParams({});
-  //   }
-  // };
 
   let name = [
     localStorage.getItem("first_name"),
@@ -335,29 +254,6 @@ export default function Navbar() {
 
   const [isMobile] = useMediaQuery("(max-width: 768px)");
 
-  useEffect(() => {
-    //CheckOrSetUDID();
-    getCategories();
-  }, []);
-
-  const mergeArraysById = (array1, array2) =>
-    array1.reduce((result, obj) => {
-      const matchingObj = array2.find((o) => o.id === obj.categoryId);
-      if (matchingObj) result.push({ ...obj, ...matchingObj });
-      return result;
-    }, []);
-
-  const getCategories = async () => {
-    const response = await client.get("/categories/", {
-      params: { list: true },
-    });
-
-    if (response.data.status === true) {
-      setCategories(response.data.categories);
-      setMegaCategories(response.data.categories);
-      setTopCategory(mergeArraysById(mainLinks, response.data.categories));
-    }
-  };
 
   useEffect(() => {
     if (didMount.current === true) {
@@ -535,7 +431,7 @@ export default function Navbar() {
                               lg: "75%",
                             }}
                           >
-                            <LinkOverlay href={`/products/${result.id}`}>
+                            <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}`}>
                               {result.name}
                             </LinkOverlay>
                           </Text>
@@ -1009,7 +905,7 @@ export default function Navbar() {
                           lg: "75%",
                         }}
                       >
-                        <LinkOverlay href={`/products/${result.id}`}>
+                        <LinkOverlay as={ReactRouterLink} to={`/products/${result.id}`}>
                           {result.name}
                         </LinkOverlay>
                       </Text>
@@ -1154,7 +1050,7 @@ export default function Navbar() {
                   zIndex={9999}
                 >
                   <GridItem colSpan={3} overflow="auto">
-                    {megaCategories?.map((section, index) => (
+                    {categories?.map((section, index) => (
                       <>
                         <MenuItem
                           // icon={
