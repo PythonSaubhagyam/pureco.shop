@@ -23,10 +23,11 @@ import CapitalizeLetter from "../utils/CommanFunction";
 import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
 export default function Bussiness() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-     const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
   const { handleSubmit, control, formState } = useForm();
   const initialData = {
     company_name: "",
@@ -206,9 +207,13 @@ export default function Bussiness() {
 
     return height + "px";
   };
+  const pageUrl = "/bussiness";
+
   return (
     <>
-         {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
+
+      {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Bussiness"} secondUrl={"/bussiness"} />
       </Container>
@@ -1069,7 +1074,7 @@ export default function Bussiness() {
           </Container>
         </form>
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

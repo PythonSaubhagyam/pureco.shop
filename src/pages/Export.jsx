@@ -23,11 +23,12 @@ import checkLogin from "../utils/checkLogin";
 import { AsyncSelect, Select } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
+import MetaTags from "../context/MetaTagsContext";
 
 export default function Export() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-     const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
   const { handleSubmit, control, formState } = useForm();
   const initialData = {
     company_name: "",
@@ -227,8 +228,12 @@ export default function Export() {
 
     return height + "px";
   };
+  const pageUrl = "/exports";
+
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       {IsMobileView !== "true" && <Navbar />}
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Bussiness"} secondUrl={"/bussiness"} />
@@ -1491,7 +1496,7 @@ export default function Export() {
           </Container>
         </form>
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );

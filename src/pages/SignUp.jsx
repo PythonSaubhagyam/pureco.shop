@@ -19,6 +19,7 @@ import {
 import isPasswordStrong from "../utils/passwordStrengthCheck";
 import LoginModal from "../components/LoginModal";
 import checkLogin from "../utils/checkLogin";
+import MetaTags from "../context/MetaTagsContext";
 
 export default function SignUp() {
   const [email, setEmail] = useState(null);
@@ -114,9 +115,12 @@ export default function SignUp() {
     });
     setLoading(false);
   };
+  const pageUrl = "/signup";
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container maxW="lg">
         <form onSubmit={handleSubmit}>

@@ -1,10 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
-import { Box, Container, Text,Image } from "@chakra-ui/react";
+import { Box, Container, Text, Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
+import MetaTags from "../context/MetaTagsContext";
 const Posts = [
   {
     image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/inspire-and-support/bansi gir gaushala.jpg",
@@ -38,11 +39,15 @@ const Posts = [
 
 export default function InspireSupport() {
   let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-     const IsMobileView = searchParams.get("mobile") ?? "false";
+  const searchParams = new URLSearchParams(search);
+  const IsMobileView = searchParams.get("mobile") ?? "false";
+  const pageUrl = "/inspire-and-support";
+
   return (
     <>
-       {IsMobileView !== "true" && <Navbar />}
+      <MetaTags pageUrl={pageUrl} />
+
+      {IsMobileView !== "true" && <Navbar />}
 
       <Container maxW="container.xl">
         <BreadCrumbCom
@@ -51,7 +56,7 @@ export default function InspireSupport() {
         />{" "}
       </Container>
       <Container maxW={"container.xl"} py={1} px={0} position="relative" centerContent>
-        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/inspire and support.jpg" width="100%"/>
+        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/inspire and support.jpg" width="100%" />
 
         <Text
           pb={2}
@@ -64,7 +69,7 @@ export default function InspireSupport() {
           left="50%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-          // Optional: Add background to improve text readability
+        // Optional: Add background to improve text readability
         >
           Inspire & Support
         </Text>
@@ -74,7 +79,7 @@ export default function InspireSupport() {
           <ReadMorePost color={"text.600"} postAlign="horizontal" postDetails={postDetails} />
         ))}
       </Container>
-      <ScrollToTop/>
+      <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
     </>
   );
