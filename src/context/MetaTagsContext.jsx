@@ -49,7 +49,7 @@ const MetaTags = ({ pageUrl }) => {
   if (metaData) {
     return (
       <Helmet>
-        <title>{metaData.title || "Pureco.shop"}</title>
+        <title>{metaData.title || "Pureco"}</title>
         <meta name="description" content={metaData.description} />
         <meta name="keywords" content={metaData.keywords} />
       </Helmet>
@@ -58,10 +58,11 @@ const MetaTags = ({ pageUrl }) => {
 
   return (
     <Helmet>
-      <title>Pureco.shop</title>
+      <title>Pureco</title>
       <meta
         name="description"
-        content=""
+        content="Eco-friendly, biodegradable products that are sustainable and high-quality,
+         making environmentally conscious choices easy."
       />
       <meta name="keywords" content="" />
     </Helmet>
