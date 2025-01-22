@@ -42,6 +42,8 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   initializeAppData
 } from "../redux/slices/homeApi";
+import { Helmet } from "react-helmet";
+import MetaHome from "../components/MetaHome";
 
 
 export default function Home() {
@@ -101,9 +103,19 @@ console.log("first",upperBanners)
     }
   }, []);
 
+
+  const pageUrl = "/";
   return (
     <>
-      {/* {loader === true ? (
+      <MetaHome pageUrl={pageUrl} />
+      {/* <Helmet>
+        <title>Pureco.shop - Home</title>
+        <meta
+          name="description"
+          content=""
+        />
+      </Helmet> */}
+      {/* {loading === true ? (
         <Center h="100vh" w="100vw" backgroundColor={"bg.500"}>
           <Loader site={true} />
         </Center>
@@ -130,14 +142,14 @@ console.log("first",upperBanners)
       {ourAboutSection?.length > 0 &&
         ourAboutSection[0]?.is_visible_on_website === true && (
           <>
-          <Container maxW={"container.xl"} mb={8} px={0}>
-            <Text
-              fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
-              fontWeight={500}
-              bgColor={"bg.500"}
-              textAlign={{ base: "center", md: "start" }}
-              px={{ base: 2, md: 8 }}
-              py={4}
+            <Container maxW={"container.xl"} mb={8} px={0}>
+              <Text
+                fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+                fontWeight={500}
+                bgColor={"bg.500"}
+                textAlign={{ base: "center", md: "start" }}
+                px={{ base: 2, md: 8 }}
+                py={4}
               //my={3}
             >
               {ourAboutSection[0]?.label}
@@ -180,7 +192,7 @@ console.log("first",upperBanners)
               style={{
                 opacity: 1,
                 transition: "opacity 0.7s", // Note the corrected syntax here
-                width:"100%"
+                width: "100%"
               }}
             />
           </Container>
@@ -292,9 +304,9 @@ console.log("first",upperBanners)
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
                   </Stat>
                 ))}
-          
-        </SimpleGrid>
-      </Container>)}
+
+            </SimpleGrid>
+          </Container>)}
       {awardsSection?.length > 0 &&
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>

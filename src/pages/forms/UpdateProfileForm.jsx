@@ -19,6 +19,7 @@ import checkLogin from "../../utils/checkLogin";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { useDayzed } from "dayzed";
+import MetaTags from "../../context/MetaTagsContext";
 
 export default function UpdateProfileForm() {
   const location = useLocation();
@@ -104,7 +105,7 @@ export default function UpdateProfileForm() {
           duration: 5000,
           isClosable: true,
         });
-        return null ;
+        return null;
       }
       const response = await client.patch(
         "/user/profile/",
@@ -149,9 +150,13 @@ export default function UpdateProfileForm() {
     // setLoading(true);
     await updateDetails(formData);
   };
+  const pageUrl = "/profile/edit";
+
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Flex
         as={"form"}

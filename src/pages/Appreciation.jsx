@@ -11,9 +11,14 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+import MetaTags from "../context/MetaTagsContext";
+const pageUrl = "/appreciation";
+
 const Appreciation = () => {
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Appreciation"} secondUrl={"/appreciation"} />
@@ -32,8 +37,8 @@ const Appreciation = () => {
           boxShadow={"0px 0px 0px 0px"}
           height={"550px"}
           mb={10}
-          // filter="brightness(200%)"
-          // style={{ backdropFilter: "blur(10px)" }}
+        // filter="brightness(200%)"
+        // style={{ backdropFilter: "blur(10px)" }}
         >
           <Text
             pb={2}
@@ -50,8 +55,8 @@ const Appreciation = () => {
         <Flex
           gap={"10"}
           direction={{ base: "column", lg: "row" }}
-          // justify={{ base: "center", lg: "flex-start" }}
-          // align="center"
+        // justify={{ base: "center", lg: "flex-start" }}
+        // align="center"
         >
           <Image
             src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/appreciation/appreciation.jpeg"}
@@ -98,7 +103,7 @@ const Appreciation = () => {
         </SimpleGrid>
       </Container>
 
-      <ScrollToTop/>
+      <ScrollToTop />
       <Footer />
     </>
   );

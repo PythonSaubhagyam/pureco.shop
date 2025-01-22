@@ -15,6 +15,7 @@ import checkLogin from "../utils/checkLogin";
 import checkOrSetUDID from "../utils/checkOrSetUDID";
 import client from "../setup/axiosClient";
 import LoginModal from "../components/LoginModal";
+import MetaTags from "../context/MetaTagsContext";
 
 export default function ChangePassword() {
   const [currentPassword, setCurrentPassword] = useState(null);
@@ -75,9 +76,12 @@ export default function ChangePassword() {
     e.preventDefault();
     await changePasswordRequest();
   };
+  const pageUrl = "/update-password";
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container>
         <form onSubmit={handleSubmit}>

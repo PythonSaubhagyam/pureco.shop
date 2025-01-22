@@ -111,14 +111,14 @@ export default function ProductDetails() {
   // const maxWidth = useBreakpointValue({ base: "100%", lg: "container.xl" });
   // const boxWidth = useBreakpointValue({ base: "100%", lg: "75%" });
   const loginInfo = checkLogin();
- 
+
   const MINIMUM_RATING_THRESHOLD = 0.0;
   const incrementCounter = () => setCounter(counter + 1);
   let decrementCounter = () => setCounter(counter - 1);
   if (counter <= 1) {
     decrementCounter = () => setCounter(1);
   }
-  
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { productId } = useParams();
 
@@ -127,18 +127,18 @@ export default function ProductDetails() {
   }, [productId]);
 
   useEffect(() => {
-   
+
     getProductsList(productId); // eslint-disable-next-line
   }, [productId]);
 
   async function getProductsList(productId) {
     const checkOrSetUDIDInfo = await CheckOrSetUDID();
-  let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
-  if (loginInfo.isLoggedIn === true) {
-    headers = {
-      Authorization: `token ${loginInfo.token}`,
-    };
-  }
+    let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
+    if (loginInfo.isLoggedIn === true) {
+      headers = {
+        Authorization: `token ${loginInfo.token}`,
+      };
+    }
     const promise1 = await client.get(
       `/web/single/product/related/${productId}/`,
       {
@@ -154,18 +154,18 @@ export default function ProductDetails() {
         headers: headers,
       }
     );
-   
+
 
     Promise.all([promise1, promise2, promise3])
       .then(function (responses) {
         if (responses[0].data.status === true) {
-         setRelatedProducts(responses[0].data?.data)
+          setRelatedProducts(responses[0].data?.data)
         }
         if (responses[1].data.status === true) {
           setOtherProducts(responses[1].data?.data)
         }
         if (responses[2].data.status === true) {
-         setRecentlyViewedProducts(responses[2].data?.data)
+          setRecentlyViewedProducts(responses[2].data?.data)
         }
 
         //setLoading(false);
@@ -178,12 +178,12 @@ export default function ProductDetails() {
 
   async function getProductDetails() {
     const checkOrSetUDIDInfo = await CheckOrSetUDID();
-  let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
-  if (loginInfo.isLoggedIn === true) {
-    headers = {
-      Authorization: `token ${loginInfo.token}`,
-    };
-  }
+    let headers = { visitor: checkOrSetUDIDInfo.visitor_id };
+    if (loginInfo.isLoggedIn === true) {
+      headers = {
+        Authorization: `token ${loginInfo.token}`,
+      };
+    }
     setLoading(true);
     client
       .get(`web/single/product/${productId}/`, {
@@ -206,7 +206,7 @@ export default function ProductDetails() {
             setNoOfReviews(response.data.data?.average_rating?.review_count);
           }
           setWished(response.data.data?.is_wished);
-         
+
           window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
           setLoading(false);
         } else {
@@ -302,14 +302,21 @@ export default function ProductDetails() {
   };
   return (
     <>
-    {" "}
+      {" "}
       <Helmet>
-        <title>{productData?.name || "My Store"}</title>
-        <meta name="description" content={productData?.description} />
+        <title>{productData?.metatitle || productData?.name}</title>
+        <meta name="description" content={productData?.metadescription} />
+        <meta name="keywords" content={productData?.metakeywords} />
         <meta property="og:title" content={productData?.name} />
-        <meta property="og:description" content={productData?.description} />
+        <meta
+          property="og:description"
+          content={productData?.metadescription}
+        />
         <meta property="og:price" content={productData?.base_price} />
-        <meta property="og:Rating" content={productData?.average_rating?.average_rating}/>
+        <meta
+          property="og:Rating"
+          content={productData?.average_rating?.average_rating}
+        />
         <meta property="og:Stock" content={"In Stock"} />
         <meta property="og:Delivery" content={"4-7 day delivery"} />
         <meta property="og:image" content={productData?.images[0]} />
@@ -333,7 +340,7 @@ export default function ProductDetails() {
                   .split(" ")
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                   .join(" ")}`}
-                // thirdUrl={`/shop?category=${categories.categoryId || ''}`}
+              // thirdUrl={`/shop?category=${categories.categoryId || ''}`}
               />
             </Box>
           </Container>
@@ -363,7 +370,7 @@ export default function ProductDetails() {
                   gap={2}
                   align={{ base: "flex-start", md: "flex-start" }}
 
-                  //mt={{md:16}}
+                //mt={{md:16}}
                 >
                   <Heading
                     // mb={2}
@@ -415,7 +422,7 @@ export default function ProductDetails() {
                           fontWeight={"500"}
                           mr={2}
                           cursor={"pointer"}
-                          onClick={()=>navigate(`/shop?page=1&brand=${productData.brand}&brand_name=${productData.brand_name}`)}
+                          onClick={() => navigate(`/shop?page=1&brand=${productData.brand}&brand_name=${productData.brand_name}`)}
                         >
                           Brand :{"  "}
                           {productData.brand_name}
@@ -642,15 +649,15 @@ export default function ProductDetails() {
                         _hover={
                           isWished
                             ? {
-                                color: "white",
-                                bg: "red.600",
-                                cursor: "pointer",
-                              }
+                              color: "white",
+                              bg: "red.600",
+                              cursor: "pointer",
+                            }
                             : {
-                                color: "white",
-                                bg: "brand.900",
-                                cursor: "pointer",
-                              }
+                              color: "white",
+                              bg: "brand.900",
+                              cursor: "pointer",
+                            }
                         }
                         onClick={() => handleWishlistChange(productData?.id)}
                       >
@@ -739,7 +746,7 @@ export default function ProductDetails() {
             </Container>
           )}
 
-         {relatedProducts?.length > 0 && <ProductListSection
+          {relatedProducts?.length > 0 && <ProductListSection
             title="Related Products"
             products={relatedProducts}
             loading={loading}
@@ -747,7 +754,7 @@ export default function ProductDetails() {
             fontSize={{ base: "sm", lg: "md" }}
             type={"carousal"}
           />
-}
+          }
           {otherProducts?.length > 0 && <ProductListSection
             title="Other Products"
             products={otherProducts}
@@ -823,11 +830,11 @@ export default function ProductDetails() {
             </ModalContent>
           </Modal>
           {!checkLogin().isLoggedIn && (
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-        />
-      )}
+            <LoginModal
+              isOpen={isLoginModalOpen}
+              onClose={() => setIsLoginModalOpen(false)}
+            />
+          )}
           {/* </Flex> */}
           <ScrollToTop />
         </>
