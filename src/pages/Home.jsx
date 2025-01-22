@@ -38,6 +38,7 @@ import Testimonials from "../components/testimonials";
 import LoginModal from "../components/LoginModal";
 import checkLogin from "../utils/checkLogin";
 import { Helmet } from "react-helmet";
+import MetaHome from "../components/MetaHome";
 
 const productItems = [
   {
@@ -505,17 +506,17 @@ export default function Home() {
       id: 1755,
     },
   ];
-
+  const pageUrl = "/";
   return (
     <>
-    <Helmet>
-        <title>Pureco.shop - Home</title> {/* Set default title */}
+      <MetaHome pageUrl={pageUrl} />
+      {/* <Helmet>
+        <title>Pureco.shop - Home</title>
         <meta
           name="description"
           content=""
         />
-        {/* You can add other meta tags for SEO */}
-      </Helmet>
+      </Helmet> */}
       {/* {loading === true ? (
         <Center h="100vh" w="100vw" backgroundColor={"bg.500"}>
           <Loader site={true} />
@@ -543,47 +544,47 @@ export default function Home() {
       {AboutSection?.length > 0 &&
         AboutSection[0]?.is_visible_on_website === true && (
           <>
-          <Container maxW={"container.xl"} mb={8} px={0}>
-            <Text
-              fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
-              fontWeight={500}
-              bgColor={"bg.500"}
-              textAlign={{ base: "center", md: "start" }}
-              px={{ base: 2, md: 8 }}
-              py={4}
+            <Container maxW={"container.xl"} mb={8} px={0}>
+              <Text
+                fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
+                fontWeight={500}
+                bgColor={"bg.500"}
+                textAlign={{ base: "center", md: "start" }}
+                px={{ base: 2, md: 8 }}
+                py={4}
               //my={3}
-            >
-              {AboutSection[0]?.label}
-            </Text>
-            <Text
-              color={"text.300"}
-              textAlign={"justify"}
-              justifyContent={"justify"}
-              px={{ base: 15, lg: 20 }}
-              mt={12}
-              fontSize={{ base: "sm", lg: "md" }}
-              whiteSpace={"pre-line"}
-            >
-              {AboutSection[0]?.description}
-            </Text>
-          </Container>
-          <Container centerContent>
-          <Button
-            variant={"outline"}
-            borderColor={"text.500"}
-            _hover={{ bgColor: "text.500", color: "white" }}
-            borderRadius={"22px"}
-            border={"1px"}
-            onClick={() => navigate(`/about-us`)}
-            color={"text.500"}
-          >
-            {" "}
-            Read More{" "}
-          </Button>
-        </Container>
-        </>
+              >
+                {AboutSection[0]?.label}
+              </Text>
+              <Text
+                color={"text.300"}
+                textAlign={"justify"}
+                justifyContent={"justify"}
+                px={{ base: 15, lg: 20 }}
+                mt={12}
+                fontSize={{ base: "sm", lg: "md" }}
+                whiteSpace={"pre-line"}
+              >
+                {AboutSection[0]?.description}
+              </Text>
+            </Container>
+            <Container centerContent>
+              <Button
+                variant={"outline"}
+                borderColor={"text.500"}
+                _hover={{ bgColor: "text.500", color: "white" }}
+                borderRadius={"22px"}
+                border={"1px"}
+                onClick={() => navigate(`/about-us`)}
+                color={"text.500"}
+              >
+                {" "}
+                Read More{" "}
+              </Button>
+            </Container>
+          </>
         )}
-      
+
       {CertificateSection?.length > 0 &&
         CertificateSection[0]?.is_visible_on_website === true && (
           <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
@@ -593,7 +594,7 @@ export default function Home() {
               style={{
                 opacity: 1,
                 transition: "opacity 0.7s", // Note the corrected syntax here
-                width:"100%"
+                width: "100%"
               }}
             />
           </Container>
@@ -682,18 +683,18 @@ export default function Home() {
       </Container>
       {statisticsSection?.length > 0 &&
         statisticsSection[0]?.is_visible_on_website === true && (
-      <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
-        <SimpleGrid
-          columns={[2, 3, null, 4]}
-          px={6}
-          maxW={"container.xl"}
-          my={6}
-          // backgroundColor={"bg.500"}
-          align="center"
-          spacingX={{ base: "10vw", md: "30px" }}
-          spacingY="40px"
-        >
-          {statisticsSection?.length > 0 &&
+          <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
+            <SimpleGrid
+              columns={[2, 3, null, 4]}
+              px={6}
+              maxW={"container.xl"}
+              my={6}
+              // backgroundColor={"bg.500"}
+              align="center"
+              spacingX={{ base: "10vw", md: "30px" }}
+              spacingY="40px"
+            >
+              {statisticsSection?.length > 0 &&
                 statisticsSection?.map((data) => (
                   <Stat>
                     <StatNumber
@@ -705,9 +706,9 @@ export default function Home() {
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
                   </Stat>
                 ))}
-          
-        </SimpleGrid>
-      </Container>)}
+
+            </SimpleGrid>
+          </Container>)}
       {awardsSection?.length > 0 &&
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
