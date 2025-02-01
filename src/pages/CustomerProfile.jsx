@@ -37,6 +37,9 @@ import { BsPatchCheckFill } from "react-icons/bs";
 import Loader from "../components/Loader";
 import ScrollToTop from "../components/ScrollToTop";
 import MetaTags from "../context/MetaTagsContext";
+import { FaCheckCircle } from "react-icons/fa";
+import moment from "moment";
+
 export default function CustomerProfile() {
   const [details, setDetails] = useState([]);
   const [addresses, setAddresses] = useState([]);
@@ -47,12 +50,15 @@ export default function CustomerProfile() {
   const navigate = useNavigate();
   const toast = useToast();
   const loginInfo = checkLogin();
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [eliteData, setEliteData] = useState([]);
   let is_sose_elite_user = localStorage.getItem("is_sose_elite_user");
 
-  // const [hashValue, setHashValue] = useState(0);
   useEffect(() => {
-    // setHashValue(window.location.hash === "#orders" ? 2 : 0);
-
+   
+    if (location.hash === "#orders") {
+      setActiveTabIndex(2); 
+    }
     getDetails();
     getOrderData();
     if (is_sose_elite_user === "true") {
@@ -62,11 +68,11 @@ export default function CustomerProfile() {
   async function getSubscriptionData() {
     setLoading(true);
     try {
-      const response = await client.get("/user/user_subscriptions/", {
+      const response = await client.get("/user/profile_elite_users/", {
         headers: { Authorization: `token ${loginInfo.token}` },
       });
       response.data.status
-        ? setOrderData(response.data.data)
+        ? setEliteData(response.data.data)
         : toast({
           title: `${response.message}`,
           description:
@@ -186,6 +192,42 @@ export default function CustomerProfile() {
       sortable: true,
     },
   ];
+  const subscriptionColumns = [
+    {
+      name: "Name",
+      selector: (row) => (row.user_data?.name ? row.user_data?.name : "-"),
+      sortable: true,
+    },
+    {
+      name: "Start Date",
+      selector: (row) => moment(row.start_date).format("DD-MM-YYYY"),
+      sortable: true,
+    },
+    {
+      name: "End Date",
+      selector: (row) => moment(row.end_date).format("DD-MM-YYYY"),
+      sortable: true,
+    },
+
+    {
+      name: "Expire",
+      selector: (row) => (row.is_expired ? row.is_expired : "-"),
+      sortable: true,
+      maxWidth: "300px",
+      minWidth: "300px"
+    },
+    {
+      name: "Is Active",
+      selector: (row) => row.is_active,
+      sortable: true,
+      cell: (row) => (
+        <>
+          {row.is_active ? <FaCheckCircle color="#436131" fontSize={16} /> : <RiCloseCircleFill color="#A52A2A" fontSize={18} />}
+
+        </>
+      ),
+    },
+  ];
 
   async function deactivateAccount() {
     var config = {
@@ -223,7 +265,7 @@ export default function CustomerProfile() {
 
       <Navbar />
       <Container maxW={"container.lg"} py={12}>
-        <Tabs isLazy>
+        <Tabs isLazy index={activeTabIndex} onChange={(index) => setActiveTabIndex(index)}>
           <TabList mb="1em">
             <Tab fontSize={{ base: "sm", md: "md" }} me={4}>
               Details
@@ -419,7 +461,44 @@ export default function CustomerProfile() {
               </>
             </TabPanel>
             <TabPanel>
-              <Heading>Subscription</Heading>
+              <>
+                {loading ? (
+                  <Box textAlign="center">
+                    <Loader />
+                  </Box>
+                ) : (
+                  <>
+                    {(!details?.is_subscribed && eliteData?.length > 0) && (
+                      <Button
+                        bg={"brand.500"}
+                        color={"white"}
+                        //w={"100%"}
+                        ml={4}
+                        size="sm"
+                        _hover={{ bg: "brand.500" }}
+                        onClick={() => navigate("/subscription-plans")}
+                      >
+                        Renew/Buy Subscription
+                      </Button>
+                    )}
+                    {eliteData?.length > 0 ? (
+                      <Table
+                        columns={subscriptionColumns}
+                        data={eliteData}
+                        selectable={false}
+                        // onRowClick={(row, event) =>
+                        //   navigate(`/orders/${row.id}`)
+                        // }
+                        displayExtensions={false}
+                      />
+                    ) : (
+                      <Heading size="md" fontWeight={600} align="center" mt={5}>
+                        Subscription Not Found
+                      </Heading>
+                    )}
+                  </>
+                )}
+              </>
             </TabPanel>
           </TabPanels>
         </Tabs>

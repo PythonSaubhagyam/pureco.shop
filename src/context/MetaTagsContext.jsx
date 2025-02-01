@@ -64,7 +64,6 @@ const MetaTags = ({ pageUrl }) => {
         content="Eco-friendly, biodegradable products that are sustainable and high-quality,
          making environmentally conscious choices easy."
       />
-      <meta name="keywords" content="" />
     </Helmet>
   );
 };
