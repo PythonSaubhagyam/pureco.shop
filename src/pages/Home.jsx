@@ -44,6 +44,9 @@ import {
 } from "../redux/slices/homeApi";
 import { Helmet } from "react-helmet";
 import MetaHome from "../components/MetaHome";
+import CountUp from 'react-countup';
+import ScrollTrigger from 'react-scroll-trigger';
+import BlogSliderHome from "../components/BlogSliderHome";
 
 
 export default function Home() {
@@ -61,6 +64,8 @@ export default function Home() {
   );
   const isMobiles = width <= 768;
   const navigate = useNavigate();
+  const [countUp, setCountUp] = useState(false)
+
 
   const dispatch = useDispatch();
   const {
@@ -73,7 +78,7 @@ export default function Home() {
     lowerSection,
     hasFetched,
   } = useSelector((state) => state.home);
-console.log("first",upperBanners)
+
   const {
     ourAboutSection,
     ourCertificateSection,
@@ -151,38 +156,38 @@ console.log("first",upperBanners)
                 px={{ base: 2, md: 8 }}
                 py={4}
               //my={3}
-            >
-              {ourAboutSection[0]?.label}
-            </Text>
-            <Text
-              color={"text.300"}
-              textAlign={"justify"}
-              justifyContent={"justify"}
-              px={{ base: 15, lg: 20 }}
-              mt={12}
-              fontSize={{ base: "sm", lg: "md" }}
-              whiteSpace={"pre-line"}
-            >
-              {ourAboutSection[0]?.description}
-            </Text>
-          </Container>
-          <Container centerContent>
-          <Button
-            variant={"outline"}
-            borderColor={"text.500"}
-            _hover={{ bgColor: "text.500", color: "white" }}
-            borderRadius={"22px"}
-            border={"1px"}
-            onClick={() => navigate(`/about-us`)}
-            color={"text.500"}
-          >
-            {" "}
-            Read More{" "}
-          </Button>
-        </Container>
-        </>
+              >
+                {ourAboutSection[0]?.label}
+              </Text>
+              <Text
+                color={"text.300"}
+                textAlign={"justify"}
+                justifyContent={"justify"}
+                px={{ base: 15, lg: 20 }}
+                mt={12}
+                fontSize={{ base: "sm", lg: "md" }}
+                whiteSpace={"pre-line"}
+              >
+                {ourAboutSection[0]?.description}
+              </Text>
+            </Container>
+            <Container centerContent>
+              <Button
+                variant={"outline"}
+                borderColor={"text.500"}
+                _hover={{ bgColor: "text.500", color: "white" }}
+                borderRadius={"22px"}
+                border={"1px"}
+                onClick={() => navigate(`/about-us`)}
+                color={"text.500"}
+              >
+                {" "}
+                Read More{" "}
+              </Button>
+            </Container>
+          </>
         )}
-      
+
       {ourCertificateSection?.length > 0 &&
         ourCertificateSection[0]?.is_visible_on_website === true && (
           <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
@@ -216,90 +221,39 @@ console.log("first",upperBanners)
         {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
 
-      <Container maxW={"container.xl"}>
-        <Heading color="brand.500" size="lg" mx="auto" align={"center"} mt={3}>
-          BLOGS
-        </Heading>
+      <BlogSliderHome blogs={blogs} />
 
-        <Grid
-          templateColumns={{
-            base: "repeat(1,1fr)",
-            md: "repeat(2,1fr)",
-            lg: "repeat(4,1fr)",
-          }}
-          px={2}
-          py={3}
-          spacing="40px"
-        >
-          {blogs?.slice(0, 8).map((blog) => (
-            <GridItem key={blog.id} m={4}>
-              <Card>
-                <LinkBox h={400}>
-                  <Image
-                    src={blog.banner}
-                    w="100%"
-                    h="300px"
-                    loader="lazy"
-                    objectFit={"cover"}
-                    borderRadius={5}
-                    style={{
-                      opacity: 1,
-                      transition: "opacity 0.7s", // Note the corrected syntax here
-                    }}
-                  />
-                  <LinkOverlay
-                    _hover={{ color: "brand.500" }}
-                    as={ReactRouterLink} to={`/blogs/${blog.id}/`}
-                  >
-                    <Heading size="sm" fontWeight={500} m={2}>
-                      {blog.title}
-                    </Heading>
-                  </LinkOverlay>
-                </LinkBox>
-                <Flex m={2} justifyContent={"space-between"}>
-                  <Text fontSize={"sm"} color="brand.500">
-                    {new Intl.DateTimeFormat("en-CA", {
-                      dateStyle: "long",
-                      timeZone: "Asia/Kolkata",
-                    }).format(new Date(blog.published_at))}
-                  </Text>
-                  <Text
-                    fontSize={"sm"}
-                    fontWeight={600}
-                    color={"brand.500"}
-                    onClick={() => navigate(`/blogs/${blog.id}/`)}
-                    cursor={"pointer"}
-                  >
-                    Read more
-                    <ChevronRightIcon />
-                  </Text>
-                </Flex>
-              </Card>
-            </GridItem>
-          ))}
-        </Grid>
-      </Container>
       {statistics?.length > 0 &&
         statistics[0]?.is_visible_on_website === true && (
-      <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
-        <SimpleGrid
-          columns={[2, 3, null, 4]}
-          px={6}
-          maxW={"container.xl"}
-          my={6}
-          // backgroundColor={"bg.500"}
-          align="center"
-          spacingX={{ base: "10vw", md: "30px" }}
-          spacingY="40px"
-        >
-          {statistics?.length > 0 &&
-            statistics?.map((data) => (
+          <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
+            <SimpleGrid
+              columns={[2, 3, null, 4]}
+              px={6}
+              maxW={"container.xl"}
+              my={6}
+              // backgroundColor={"bg.500"}
+              align="center"
+              spacingX={{ base: "10vw", md: "30px" }}
+              spacingY="40px"
+            >
+              {statistics?.length > 0 &&
+                statistics?.map((data) => (
                   <Stat>
-                    <StatNumber
-                      color="brand.400"
-                      fontSize={{ base: "3xl", md: "3xl" }}
-                    >
-                      {data?.value}
+                    <StatNumber fontSize={{ base: "3xl", md: "3xl" }} color="brand.500">
+                      <ScrollTrigger
+                        onEnter={() => setCountUp(true)}
+                      // onExit={() => setCountUp(false)}
+                      >
+                        {countUp ? (
+                          <CountUp
+                            start={0}
+                            end={Number(data.value.replace('+', ''))}
+                            duration={2}
+                            delay={0}
+                          />
+                        ) : null}
+                        {data?.name === "Positive Feedback" ? "%+" : "+"}
+                      </ScrollTrigger>
                     </StatNumber>
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
                   </Stat>

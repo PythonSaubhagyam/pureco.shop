@@ -109,7 +109,7 @@ export default function Addtocart() {
                     boxShadow={"md"}
                     borderRadius={"8px"}
                   >
-                    <Link to={`/products/${product.id}`}>
+                    <Link to={`/products/${product.id}/${product.name.replace(/\s+/g, "-")}`}>
                       <Image
                         src={product.images[0]}
                         boxSize={"100px"}
@@ -119,7 +119,7 @@ export default function Addtocart() {
 
                     <Link
                       style={{ marginLeft: 20, marginRight: 20 }}
-                      to={`/products/${product.id}`}
+                      to={`/products/${product.id}/${product.name.replace(/\s+/g, "-")}`}
                     >
                       {product.name}
                     </Link>

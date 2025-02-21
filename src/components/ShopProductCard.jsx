@@ -142,7 +142,7 @@ export default function ShopProductCard({
         >
           <LinkOverlay
             as={ReactRouterLink}
-            to={`/products/${productDetails.id}`}
+            to={`/products/${productDetails.id}/${productDetails.name.replace(/\s+/g, "-")}`}
             fontSize="xs"
             fontWeight={600}
             color={"brand.500"}

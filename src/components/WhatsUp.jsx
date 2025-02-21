@@ -1,10 +1,12 @@
-import { Container, IconButton, Link } from "@chakra-ui/react";
+import { Container, IconButton, Link, useMediaQuery } from "@chakra-ui/react";
 import React from "react";
 import { FaWhatsapp } from "react-icons/fa";
 
 
 
 const WhatsUp = () => {
+  const [isMobile] = useMediaQuery("(max-width: 1024px)");
+
   return (
     <>
       <Container
@@ -22,8 +24,8 @@ const WhatsUp = () => {
         as={Link}
           style={{
             position: "fixed",
-            right: "100px",
-            bottom: "45px",
+            right: isMobile ? "28px" : "100px",
+            bottom: isMobile ? "110px" : "45px",
             zIndex: "100",
             opacity:"0.8"
             
