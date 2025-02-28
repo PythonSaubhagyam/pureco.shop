@@ -227,7 +227,7 @@ export default function Home() {
         statistics[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} backgroundColor={"bg.500"} mt={3} py={2}>
             <SimpleGrid
-              columns={[2, 3, null, 4]}
+              columns={[2, 3, null, 5]}
               px={6}
               maxW={"container.xl"}
               my={6}
@@ -247,12 +247,13 @@ export default function Home() {
                         {countUp ? (
                           <CountUp
                             start={0}
-                            end={Number(data.value.replace('+', ''))}
+                            end={Number(data.value.replace(/[^\d]/g, ''))}
                             duration={2}
                             delay={0}
                           />
                         ) : null}
-                        {data?.name === "Positive Feedback" ? "%+" : "+"}
+                        {data?.name === "Positive Feedback" ? "%+" : data?.name === "Generation of Farmers" ? "th" : "+"}
+
                       </ScrollTrigger>
                     </StatNumber>
                     <StatHelpText color="gray.600">{data?.name}</StatHelpText>
