@@ -74,7 +74,7 @@ export default function ProductListSection({ title, products, loading, type }) {
           {title}
         </Text>
 
-        {type === "carousal" && products.length > 2 ? (
+        {type === "carousal" && products.length > 5 ? (
           <>
 
             <IconButton
@@ -147,7 +147,7 @@ export default function ProductListSection({ title, products, loading, type }) {
         )
         }
 
-        {type === "carousal" && products && products.length > 2 ? (
+        {type === "carousal" && products && products.length > 5 ? (
           <Container maxWidth={"container.xl"} px={10} mt={5}>
 
             <div className="slider-container">
