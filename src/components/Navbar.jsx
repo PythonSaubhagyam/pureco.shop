@@ -186,16 +186,16 @@ export default function Navbar() {
   const [all, setAll] = useState(false);
 
   const [Open1, setOpen1] = useState(false);
-  
+
   const dispatch = useDispatch()
-  const { categories,mergedCategories,hasFetched } = useSelector(
-   (state) => state.category
- );
- useEffect(() => {
-  if (!hasFetched) {
-    dispatch(fetchCategories());
-  }
-}, [dispatch, hasFetched]);
+  const { categories, mergedCategories, hasFetched } = useSelector(
+    (state) => state.category
+  );
+  useEffect(() => {
+    if (!hasFetched) {
+      dispatch(fetchCategories());
+    }
+  }, [dispatch, hasFetched]);
 
   const handleHover1 = () => {
     if (categories.length > 0) {
@@ -368,8 +368,11 @@ export default function Navbar() {
             // width="100px"
             // height="50px"
             boxSize="130px"
+            pb={"4"}
+
             objectFit="contain"
-            src="/Pureco/Pureco.jpg"
+            src="/Pureco/Pureco.png"
+
             alt="SOSE Logo"
           />
         </Link>
@@ -543,9 +546,11 @@ export default function Navbar() {
             <DrawerHeader as={Flex} justify="center">
               <Link as={ReactRouterLink} to="/">
                 <Image
-                  boxSize="105px"
+                  boxSize="120px"
+                  pb={"4"}
                   objectFit="contain"
-                  src="/Pureco/Pureco.jpg"
+                  src="/Pureco/Pureco.png"
+
                   alt="SOSE Logo"
                 />
               </Link>
@@ -563,15 +568,15 @@ export default function Navbar() {
                       style={
                         all
                           ? {
-                              background: "#436131",
-                              color: "white",
-                              borderRadius: 5,
-                            }
+                            background: "#436131",
+                            color: "white",
+                            borderRadius: 5,
+                          }
                           : {
-                              background: "white",
-                              color: "black",
-                              borderRadius: 5,
-                            }
+                            background: "white",
+                            color: "black",
+                            borderRadius: 5,
+                          }
                       }
                     >
                       <Box
@@ -612,8 +617,7 @@ export default function Navbar() {
                                     setOpenAccrodion();
                                   } else {
                                     navigate(
-                                      `/shop?page=1&category=${
-                                        section.id
+                                      `/shop?page=1&category=${section.id
                                       }&category_name=${encodeURIComponent(
                                         section?.name
                                       )}`
@@ -679,8 +683,7 @@ export default function Navbar() {
                                                     setOpen(Open);
                                                   } else {
                                                     navigate(
-                                                      `/shop?page=1&category=${
-                                                        subcategory.id
+                                                      `/shop?page=1&category=${subcategory.id
                                                       }&category_name=${encodeURIComponent(
                                                         subcategory?.name
                                                       )}`
@@ -701,8 +704,7 @@ export default function Navbar() {
                                                 <AccordionIcon
                                                   onClick={() =>
                                                     navigate(
-                                                      `/shop?page=1&category=${
-                                                        subcategory.id
+                                                      `/shop?page=1&category=${subcategory.id
                                                       }&category_name=${encodeURIComponent(
                                                         subcategory?.name
                                                       )}`
@@ -738,8 +740,7 @@ export default function Navbar() {
                                                           key={i}
                                                           onClick={() => {
                                                             navigate(
-                                                              `/shop?page=1&category=${
-                                                                children.id
+                                                              `/shop?page=1&category=${children.id
                                                               }&category_name=${encodeURIComponent(
                                                                 children?.name
                                                               )}`
@@ -826,13 +827,14 @@ export default function Navbar() {
           <GridItem
             rowSpan={2}
             colSpan={1}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <Link as={ReactRouterLink} to="/">
               <Image
-                boxSize="100px"
+                boxSize="120px"
                 objectFit="contain"
-                src="/Pureco/Pureco.jpg"
+                pb={"6"}
+                src="/Pureco/Pureco.png"
                 alt="SOSE Logo"
               />
             </Link>
@@ -842,7 +844,7 @@ export default function Navbar() {
             //marginLeft={12}
             display={"flex"}
             alignItems={"center"}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <InputGroup size="sm" width={"80%"}>
               <Input
@@ -1030,7 +1032,7 @@ export default function Navbar() {
           <GridItem
             colSpan={9}
             display={"flex"}
-            // style={{ borderBottom: "0.5px solid #b7b7b7" }}
+          // style={{ borderBottom: "0.5px solid #b7b7b7" }}
           >
             <Flex
               as={"nav"}
@@ -1088,8 +1090,7 @@ export default function Navbar() {
                           onMouseEnter={() => handleShow1(section.children)}
                           onClick={() =>
                             navigate(
-                              `/shop?category=${
-                                section.id
+                              `/shop?category=${section.id
                               }&category_name=${encodeURIComponent(
                                 section?.name
                               )}`
@@ -1117,8 +1118,7 @@ export default function Navbar() {
                         key={subIndex}
                         onClick={() =>
                           navigate(
-                            `/shop?category=${
-                              item.id
+                            `/shop?category=${item.id
                             }&category_name=${encodeURIComponent(item?.name)}`
                           )
                         }
@@ -1141,8 +1141,7 @@ export default function Navbar() {
                         key={nestedIndex}
                         onClick={() =>
                           navigate(
-                            `/shop?category=${
-                              item.id
+                            `/shop?category=${item.id
                             }&category_name=${encodeURIComponent(item?.name)}`
                           )
                         }
