@@ -460,7 +460,7 @@ export default function Navbar() {
                             </LinkOverlay>
                           </Text>
                           <Text fontSize="sm" fontWeight="600">
-                            ₹{result.base_price}
+                            ₹{Number(result.product_price || result.base_price || 0).toFixed(2)}
                           </Text>
                         </LinkBox>
                       ))}
@@ -935,7 +935,7 @@ export default function Navbar() {
                         </LinkOverlay>
                       </Text>
                       <Text fontSize="sm" fontWeight="600">
-                        ₹{result.base_price}
+                        ₹{Number(result.product_price || result.base_price || 0).toFixed(2)}
                       </Text>
                     </LinkBox>
                   ))}

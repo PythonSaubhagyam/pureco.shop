@@ -51,48 +51,48 @@ export default function ShopProductCard({
         padding={"none"}
         position={"absolute"}
       >
-          {productDetails.product_tag_list
-            .filter(
-              (tag) =>
-                tag === "Sugar Free" ||
-                tag === "Best Seller" ||
-                tag === "New Products"
-            )
-            .sort((a, b) => (a === "Best Seller" ? -1 : 1))
-            .map((tag, index) => (
-              <React.Fragment key={index}>
-                {tag === "Best Seller" && (
-                  <Image
-                    src={BestSellerImg}
-                    alt="Best Seller"
-                    height={"4rem"}
-                    width={"4rem"}
-                  />
-                )}
-                {(tag === "Sugar Free" || tag === "New Products") && (
-                  <Flex
-                    justifyContent={"space-between"}
-                    align={"center"}
-                    gap={1}
+        {productDetails.product_tag_list
+          .filter(
+            (tag) =>
+              tag === "Sugar Free" ||
+              tag === "Best Seller" ||
+              tag === "New Products"
+          )
+          .sort((a, b) => (a === "Best Seller" ? -1 : 1))
+          .map((tag, index) => (
+            <React.Fragment key={index}>
+              {tag === "Best Seller" && (
+                <Image
+                  src={BestSellerImg}
+                  alt="Best Seller"
+                  height={"4rem"}
+                  width={"4rem"}
+                />
+              )}
+              {(tag === "Sugar Free" || tag === "New Products") && (
+                <Flex
+                  justifyContent={"space-between"}
+                  align={"center"}
+                  gap={1}
+                >
+                  <Badge
+                    bgColor="brand.500"
+                    color={"#fff"}
+                    borderRadius={"8px"}
+                    paddingX={"8px"}
+                    py={1}
+                    fontSize={11}
+                    textTransform={"none"}
+                    opacity={0.9}
+                    m={0}
+                    height={"1.6rem"}
                   >
-                    <Badge
-                      bgColor="brand.500"
-                      color={"#fff"}
-                      borderRadius={"8px"}
-                      paddingX={"8px"}
-                      py={1}
-                      fontSize={11}
-                      textTransform={"none"}
-                      opacity={0.9}
-                      m={0}
-                      height={"1.6rem"}
-                    >
-                      {tag}
-                    </Badge>
-                  </Flex>
-                )}
-              </React.Fragment>
-            ))}
+                    {tag}
+                  </Badge>
+                </Flex>
+              )}
+            </React.Fragment>
+          ))}
       </CardHeader>
       <CardBody align="center" h={{ md: 300 }} py={1} flex={"none"}>
 
@@ -138,7 +138,7 @@ export default function ShopProductCard({
           display={"flex"}
           alignItems={"center"}
           justifyContent={"center"}
-          //position={"absolute"}
+        //position={"absolute"}
         >
           <LinkOverlay
             as={ReactRouterLink}
@@ -155,38 +155,38 @@ export default function ShopProductCard({
         </Box>
         {(productDetails?.average_rating?.average_rating > 0 ||
           productDetails?.average_rating?.review_count > 0) && (
-          <Flex alignItems={"center"} justifyContent={"center"}>
-            <Badge
-              as={Flex}
-              w="fit-content"
-              gap={1}
-              colorScheme="brand"
-              px={2}
-              py={0.9}
-              color="white"
-              display={"inline-flex"}
-            >
-              <Text fontSize={12}>
-                {productDetails?.average_rating?.average_rating}
+            <Flex alignItems={"center"} justifyContent={"center"}>
+              <Badge
+                as={Flex}
+                w="fit-content"
+                gap={1}
+                colorScheme="brand"
+                px={2}
+                py={0.9}
+                color="white"
+                display={"inline-flex"}
+              >
+                <Text fontSize={12}>
+                  {productDetails?.average_rating?.average_rating}
+                </Text>
+                <Icon as={AiFillStar} boxSize={4} />
+              </Badge>
+              <Text
+                as="span"
+                color="gray.500"
+                fontSize={14}
+                ms={2}
+                align={"center"}
+              >
+                {productDetails?.average_rating?.review_count + " " + "Reviews"}
               </Text>
-              <Icon as={AiFillStar} boxSize={4} />
-            </Badge>
-            <Text
-              as="span"
-              color="gray.500"
-              fontSize={14}
-              ms={2}
-              align={"center"}
-            >
-              {productDetails?.average_rating?.review_count + " " + "Reviews"}
-            </Text>
-          </Flex>
-        )}
+            </Flex>
+          )}
       </CardBody>
       <Divider />
       <CardFooter justify={"center"} gap={8} alignItems="center" py={2}>
         <Text color="brand.900" fontSize="md">
-          ₹{parseFloat(productDetails.base_price).toFixed(2)}
+          ₹{parseFloat(productDetails.product_price || productDetails.base_price).toFixed(2)}
         </Text>
         <ButtonGroup spacing="2">
           <IconButton
