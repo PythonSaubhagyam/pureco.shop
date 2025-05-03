@@ -149,6 +149,7 @@ export default function Home() {
           <>
             <Container maxW={"container.xl"} mb={8} px={0}>
               <Text
+                as={"h1"}
                 fontSize={{ base: "xl", sm: "2xl", xl: "2xl" }}
                 fontWeight={500}
                 bgColor={"bg.500"}
@@ -266,6 +267,7 @@ export default function Home() {
         awardsSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
             <Heading
+              as={"h1"}
               color="brand.500"
               fontSize={{ md: 33, base: 20 }}
               mx="auto"
@@ -317,6 +319,7 @@ export default function Home() {
         servicesSection[0]?.is_visible_on_website === true && (
           <Container maxW={{ base: "100vw", md: "container.xl" }}>
             <Heading
+              as={"h1"}
               color="brand.500"
               fontSize={{ md: 33, base: 20 }}
               mx="auto"
@@ -345,6 +348,7 @@ export default function Home() {
         availableSection[0]?.is_visible_on_website === true && (
           <Container maxW={"container.xl"} mb={5} px={0} centerContent>
             <Heading
+              as={"h1"}
               color="brand.500"
               fontSize={{ md: 33, base: 22 }}
               mx="auto"

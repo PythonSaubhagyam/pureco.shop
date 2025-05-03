@@ -56,6 +56,7 @@ const BlogSliderHome = ({ blogs }) => {
                     backgroundRepeat={"no-repeat"}
                 >
                     <Heading
+                        as={"h1"}
                         color="brand.500"
                         fontSize={{ md: 33, base: 24 }}
                         mx="auto"
@@ -101,12 +102,12 @@ const BlogSliderHome = ({ blogs }) => {
                 <Container maxWidth={"container.xl"} px={10} mt={5}>
                     <div className="slider-container">
                         <Slider {...settings} ref={(slider) => setSlider(slider)} >
-                        {blogs?.slice(0, 8).map((blog) => (
+                            {blogs?.slice(0, 8).map((blog) => (
                                 <GridItem key={blog.id} px={5}>
                                     <Card>
                                         <LinkBox overflow={"hidden"} >
                                             <Image
-                                                _hover={{transition: "scale(1.2)"}}
+                                                _hover={{ transition: "scale(1.2)" }}
                                                 src={blog.banner}
                                                 w="100%"
                                                 h="300px"
