@@ -31,6 +31,7 @@ import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import LoginModal from "../components/LoginModal";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 const testimonials = [
   {
@@ -66,6 +67,7 @@ function SubscriptionPlans() {
   const IsMobileView = searchParams.get("mobile") ?? "false";
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const pageUrl = "/subscription-plans";
+  useScrollRestoration();
 
   return (
     <>

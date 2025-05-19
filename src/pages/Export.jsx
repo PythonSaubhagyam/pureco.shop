@@ -11,6 +11,7 @@ import {
   Checkbox,
   useToast,
   FormErrorMessage,
+  Box,
 } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import Navbar from "../components/Navbar";
@@ -24,11 +25,17 @@ import { AsyncSelect, Select } from "chakra-react-select";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
+
+
 
 export default function Export() {
+
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+
+
   const { handleSubmit, control, formState } = useForm();
   const initialData = {
     company_name: "",
@@ -78,6 +85,7 @@ export default function Export() {
   const [cities, setCities] = useState([]);
   const [isAgree, setIsAgree] = useState(true);
   const loginInfo = checkLogin();
+  useScrollRestoration();
 
   const toast = useToast();
   const onSubmit = async (e) => {
@@ -235,1269 +243,1280 @@ export default function Export() {
       <MetaTags pageUrl={pageUrl} />
 
       {IsMobileView !== "true" && <Navbar />}
+
       <Container maxW="container.xl">
         <BreadCrumbCom second={"Bussiness"} secondUrl={"/bussiness"} />
       </Container>
       <Container maxW="container.lg" pb={10}>
-        <Text
-          pb={2}
-          size="xl"
-          fontSize="4xl"
-          fontWeight="medium"
-          color="brand.500"
+        <Box
+          p={6}
+          borderWidth="1px"
+          borderRadius="lg"
+          boxShadow="md"
+          bg="white"
+          mt={6}
         >
-          Exports
-        </Text>
-
-        <form onSubmit={onSubmit}>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Company Name*
-            </FormLabel>
-            <Controller
-              name="company_name"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  required
-                  value={formData.company_name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, company_name: e.target.value })
-                  }
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Industry Type*
-            </FormLabel>
-            <Controller
-              name="industry_type"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  required
-                  value={formData.industry_type}
-                  onChange={(e) =>
-                    setFormData({ ...formData, industry_type: e.target.value })
-                  }
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Company Size*
-            </FormLabel>
-            <Controller
-              name="company_size"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  required
-                  value={formData.company_size}
-                  onChange={(e) =>
-                    setFormData({ ...formData, company_size: e.target.value })
-                  }
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Website
-            </FormLabel>
-            <Controller
-              name="website"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData.website}
-                  onChange={(e) =>
-                    setFormData({ ...formData, website: e.target.value })
-                  }
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Annual Revenue*
-            </FormLabel>
-            <Controller
-              name="annual_revenue"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  maxW={"lg"}
-                  size="sm"
-                  chakraStyles={{
-                    inputContainer: (provided) => ({
-                      ...provided,
-                      width: "375px",
-                    }),
-                  }}
-                  variant="outline"
-                  required
-                  value={formData?.annual_revenue}
-                  onChange={(e) =>
-                    setFormData({ ...formData, annual_revenue: e })
-                  }
-                  options={[
-                    {
-                      value: "30_lacs_to_1_cr",
-                      label: "30 lacs to 1 cr",
-                    },
-                    {
-                      value: "1_to_5_cr",
-                      label: "1 to 5 cr",
-                    },
-                    {
-                      value: "5_to_10_cr",
-                      label: "5 to 10 cr",
-                    },
-                    {
-                      value: "10_to_25_cr",
-                      label: "10 to 25 cr",
-                    },
-                    {
-                      value: "25_to_50_cr",
-                      label: "25 to 50 cr",
-                    },
-                    {
-                      value: "50_to_100 cr",
-                      label: "50 to 100 cr",
-                    },
-                    {
-                      value: "100_to_200 cr",
-                      label: "100 to 200 cr",
-                    },
-
-                    {
-                      value: "200_to_500_cr",
-                      label: "200 to 500 cr",
-                    },
-
-                    {
-                      value: "500_cr_and_above",
-                      label: "500 cr and above",
-                    },
-                  ]}
-                ></Select>
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Company Registered*
-            </FormLabel>
-            <Controller
-              name="company_registered"
-              control={control}
-              render={({ field }) => (
-                <Select
-                  {...field}
-                  maxW={"md"}
-                  chakraStyles={{
-                    inputContainer: (provided) => ({
-                      ...provided,
-                      width: "375px",
-                    }),
-                  }}
-                  size="sm"
-                  variant="outline"
-                  required
-                  value={formData?.company_registered}
-                  onChange={(e) =>
-                    setFormData({ ...formData, company_registered: e })
-                  }
-                  _focus={{ borderColor: "brand.500" }}
-                  options={[
-                    {
-                      value: "yes",
-                      label: "Yes",
-                    },
-                    {
-                      value: "applied",
-                      label: "Applied",
-                    },
-                    {
-                      value: "no",
-                      label: "No",
-                    },
-                  ]}
-                ></Select>
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Country
-            </FormLabel>
-
-            <AsyncSelect
-              isClearable
-              size="sm"
-              chakraStyles={{
-                inputContainer: (provided) => ({
-                  ...provided,
-                  width: "375px",
-                }),
-              }}
-              variant={"outline"}
-              name="Countries"
-              sx={{ padding: "0 10px" }}
-              placeholder="Select Country"
-              value={formData?.country}
-              onChange={(e) => handleCountryChange(e)}
-              loadOptions={countryOptions}
-              defaultOptions={countries}
-            ></AsyncSelect>
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              State
-            </FormLabel>
-            <Select
-              isClearable
-              size="sm"
-              chakraStyles={{
-                inputContainer: (provided) => ({
-                  ...provided,
-                  width: "375px",
-                }),
-              }}
-              value={formData?.state}
-              sx={{ padding: "0 10px" }}
-              onChange={(e) => handleStateChange(e)}
-              disabled={formData.country === null ? true : false}
-              placeholder="Select State"
-              variant={"outline"}
-              options={states}
-            ></Select>
-            {formData.country === null ? (
-              <FormErrorMessage>
-                Please select a country first!
-              </FormErrorMessage>
-            ) : null}
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              City
-            </FormLabel>
-            <Select
-              isClearable
-              size="sm"
-              chakraStyles={{
-                inputContainer: (provided) => ({
-                  ...provided,
-                  width: "375px",
-                }),
-              }}
-              value={formData?.city}
-              sx={{ padding: "0 10px" }}
-              disabled={formData.state === null ? true : false}
-              variant={"outline"}
-              onChange={(e) => setFormData({ ...formData, city: e })}
-              placeholder="Select City"
-              options={cities}
-            ></Select>
-            {formData.state === null ? (
-              <FormErrorMessage>Please select a state first!</FormErrorMessage>
-            ) : null}
-          </FormControl>
-          <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
-            Contact Person
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Full Name
-            </FormLabel>
-            <Controller
-              name="full_name"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.full_name}
-                  onChange={(e) => {
-                    setFormData({ ...formData, full_name: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Job Title
-            </FormLabel>
-            <Controller
-              name="job_title"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="text"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.job_title}
-                  onChange={(e) => {
-                    setFormData({ ...formData, job_title: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Email Address
-            </FormLabel>
-            <Controller
-              name="email"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="email"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.email}
-                  onChange={(e) => {
-                    setFormData({ ...formData, email: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Phone Number
-            </FormLabel>
-            <Controller
-              name=" phone_no"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  type="tel"
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.phone_no}
-                  onChange={(e) => {
-                    setFormData({ ...formData, phone_no: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-
-          <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
-            Export Interests
-          </Text>
-
           <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
+            pb={2}
+            size="xl"
+            fontSize="4xl"
+            fontWeight="medium"
+            color="brand.500"
           >
-            <Controller
-              name="question1"
-              defaultValue={formData?.question1}
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
+            Exports
           </Text>
 
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+          <form onSubmit={onSubmit}>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
             >
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer1"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.answer1}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer1: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question2"
-              defaultValue={formData?.question2}
-              control={control}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Company Name*
+              </FormLabel>
+              <Controller
+                name="company_name"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    required
+                    value={formData.company_name}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company_name: e.target.value })
+                    }
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Industry Type*
+              </FormLabel>
+              <Controller
+                name="industry_type"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    required
+                    value={formData.industry_type}
+                    onChange={(e) =>
+                      setFormData({ ...formData, industry_type: e.target.value })
+                    }
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Company Size*
+              </FormLabel>
+              <Controller
+                name="company_size"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    required
+                    value={formData.company_size}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company_size: e.target.value })
+                    }
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Website
+              </FormLabel>
+              <Controller
+                name="website"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData.website}
+                    onChange={(e) =>
+                      setFormData({ ...formData, website: e.target.value })
+                    }
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Annual Revenue*
+              </FormLabel>
+              <Controller
+                name="annual_revenue"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    maxW={"lg"}
+                    size="sm"
+                    chakraStyles={{
+                      inputContainer: (provided) => ({
+                        ...provided,
+                        width: "375px",
+                      }),
+                    }}
+                    variant="outline"
+                    required
+                    value={formData?.annual_revenue}
+                    onChange={(e) =>
+                      setFormData({ ...formData, annual_revenue: e })
+                    }
+                    options={[
+                      {
+                        value: "30_lacs_to_1_cr",
+                        label: "30 lacs to 1 cr",
+                      },
+                      {
+                        value: "1_to_5_cr",
+                        label: "1 to 5 cr",
+                      },
+                      {
+                        value: "5_to_10_cr",
+                        label: "5 to 10 cr",
+                      },
+                      {
+                        value: "10_to_25_cr",
+                        label: "10 to 25 cr",
+                      },
+                      {
+                        value: "25_to_50_cr",
+                        label: "25 to 50 cr",
+                      },
+                      {
+                        value: "50_to_100 cr",
+                        label: "50 to 100 cr",
+                      },
+                      {
+                        value: "100_to_200 cr",
+                        label: "100 to 200 cr",
+                      },
 
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer2"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  value={formData?.answer2}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer2: e.target.value });
-                  }}
-                  _focus={{ borderColor: "brand.500" }}
-                />
-              )}
-            />
-          </FormControl>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question3"
-              control={control}
-              defaultValue={formData?.question3}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer3"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer3}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer3: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+                      {
+                        value: "200_to_500_cr",
+                        label: "200 to 500 cr",
+                      },
 
-          <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
-            Export Readiness
-          </Text>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question4"
-              control={control}
-              defaultValue={formData?.question4}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.answer5) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+                      {
+                        value: "500_cr_and_above",
+                        label: "500 cr and above",
+                      },
+                    ]}
+                  ></Select>
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer4"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer4}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer4: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Company Registered*
+              </FormLabel>
+              <Controller
+                name="company_registered"
+                control={control}
+                render={({ field }) => (
+                  <Select
+                    {...field}
+                    maxW={"md"}
+                    chakraStyles={{
+                      inputContainer: (provided) => ({
+                        ...provided,
+                        width: "375px",
+                      }),
+                    }}
+                    size="sm"
+                    variant="outline"
+                    required
+                    value={formData?.company_registered}
+                    onChange={(e) =>
+                      setFormData({ ...formData, company_registered: e })
+                    }
+                    _focus={{ borderColor: "brand.500" }}
+                    options={[
+                      {
+                        value: "yes",
+                        label: "Yes",
+                      },
+                      {
+                        value: "applied",
+                        label: "Applied",
+                      },
+                      {
+                        value: "no",
+                        label: "No",
+                      },
+                    ]}
+                  ></Select>
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Country
+              </FormLabel>
 
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question5"
-              control={control}
-              defaultValue={formData?.question5}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.question5) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+              <AsyncSelect
+                isClearable
+                size="sm"
+                chakraStyles={{
+                  inputContainer: (provided) => ({
+                    ...provided,
+                    width: "375px",
+                  }),
+                }}
+                variant={"outline"}
+                name="Countries"
+                sx={{ padding: "0 10px" }}
+                placeholder="Select Country"
+                value={formData?.country}
+                onChange={(e) => handleCountryChange(e)}
+                loadOptions={countryOptions}
+                defaultOptions={countries}
+              ></AsyncSelect>
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer4"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer5}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer5: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question6"
-              control={control}
-              defaultValue={formData?.question6}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.question6) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                State
+              </FormLabel>
+              <Select
+                isClearable
+                size="sm"
+                chakraStyles={{
+                  inputContainer: (provided) => ({
+                    ...provided,
+                    width: "375px",
+                  }),
+                }}
+                value={formData?.state}
+                sx={{ padding: "0 10px" }}
+                onChange={(e) => handleStateChange(e)}
+                disabled={formData.country === null ? true : false}
+                placeholder="Select State"
+                variant={"outline"}
+                options={states}
+              ></Select>
+              {formData.country === null ? (
+                <FormErrorMessage>
+                  Please select a country first!
+                </FormErrorMessage>
+              ) : null}
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer6"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer6}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer6: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                City
+              </FormLabel>
+              <Select
+                isClearable
+                size="sm"
+                chakraStyles={{
+                  inputContainer: (provided) => ({
+                    ...provided,
+                    width: "375px",
+                  }),
+                }}
+                value={formData?.city}
+                sx={{ padding: "0 10px" }}
+                disabled={formData.state === null ? true : false}
+                variant={"outline"}
+                onChange={(e) => setFormData({ ...formData, city: e })}
+                placeholder="Select City"
+                options={cities}
+              ></Select>
+              {formData.state === null ? (
+                <FormErrorMessage>Please select a state first!</FormErrorMessage>
+              ) : null}
+            </FormControl>
+            <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
+              Contact Person
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Full Name
+              </FormLabel>
+              <Controller
+                name="full_name"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.full_name}
+                    onChange={(e) => {
+                      setFormData({ ...formData, full_name: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Job Title
+              </FormLabel>
+              <Controller
+                name="job_title"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="text"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.job_title}
+                    onChange={(e) => {
+                      setFormData({ ...formData, job_title: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Email Address
+              </FormLabel>
+              <Controller
+                name="email"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="email"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.email}
+                    onChange={(e) => {
+                      setFormData({ ...formData, email: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Phone Number
+              </FormLabel>
+              <Controller
+                name=" phone_no"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    type="tel"
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.phone_no}
+                    onChange={(e) => {
+                      setFormData({ ...formData, phone_no: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
 
-          <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
-            Goals and Expectations
-          </Text>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question7"
-              control={control}
-              defaultValue={formData?.question7}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.answer7) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
-            >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer7"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer7}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer7: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+            <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
+              Export Interests
+            </Text>
 
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question8"
-              control={control}
-              defaultValue={formData?.question8}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.question8) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer8"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer8}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer8: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question9"
-              control={control}
-              defaultValue={formData?.question9}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.question9) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+              <Controller
+                name="question1"
+                defaultValue={formData?.question1}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer9"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer9}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer9: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
-
-          <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
-            Additional Information
-          </Text>
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question10"
-              control={control}
-              defaultValue={formData?.question10}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.answer10) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer1"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.answer1}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer1: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer10"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer10}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer10: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+              <Controller
+                name="question2"
+                defaultValue={formData?.question2}
+                control={control}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
 
-          <Text
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb="5"
-          >
-            <Controller
-              name="question11"
-              control={control}
-              defaultValue={formData?.question11}
-              render={({ field }) => (
-                <input
-                  {...field}
-                  type="text"
-                  readOnly
-                  style={{
-                    width: "100%",
-                    border: "none",
-                    outline: "none",
-                    padding: "0",
-                    backgroundColor: "transparent",
-                  }}
-                />
-              )}
-            />
-          </Text>
-          <FormControl
-            as={Flex}
-            direction={{ base: "column", md: "row" }}
-            align="center"
-            mt="5"
-            mb={"5"}
-            style={{ height: calculateHeight(formData?.question11) }}
-          >
-            <FormLabel
-              fontSize="sm"
-              mb={0}
-              width={{ base: "auto", md: "200px" }}
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
             >
-              {" "}
-              Answer
-            </FormLabel>
-            <Controller
-              name="answer11"
-              control={control}
-              render={({ field }) => (
-                <Input
-                  {...field}
-                  maxW={"md"}
-                  size="sm"
-                  border={"1px"}
-                  borderColor="gray.300"
-                  variant="outline"
-                  _focus={{ borderColor: "brand.500" }}
-                  value={formData?.answer11}
-                  onChange={(e) => {
-                    setFormData({ ...formData, answer11: e.target.value });
-                  }}
-                />
-              )}
-            />
-          </FormControl>
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer2"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    value={formData?.answer2}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer2: e.target.value });
+                    }}
+                    _focus={{ borderColor: "brand.500" }}
+                  />
+                )}
+              />
+            </FormControl>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question3"
+                control={control}
+                defaultValue={formData?.question3}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer3"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer3}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer3: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
 
-          <FormControl as={Flex} align="center" mb={4}>
-            <Controller
-              name=""
-              control={control}
-              defaultValue={false}
-              render={({ field }) => (
-                <Checkbox
-                  {...field}
-                  size="sm"
-                  onChange={() => setIsAgree(!isAgree)}
-                >
-                  By submitting this form, you agree to our Privacy Policy and
-                  consent to being contacted by our team regarding your inquiry.
-                </Checkbox>
-              )}
-            />
-          </FormControl>
+            <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
+              Export Readiness
+            </Text>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question4"
+                control={control}
+                defaultValue={formData?.question4}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.answer5) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer4"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer4}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer4: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
 
-          <Container maxW={"lg"} p="0">
-            <Button type="submit" colorScheme={"brand"} isDisabled={isAgree}>
-              Send
-            </Button>
-          </Container>
-        </form>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question5"
+                control={control}
+                defaultValue={formData?.question5}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.question5) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer4"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer5}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer5: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question6"
+                control={control}
+                defaultValue={formData?.question6}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.question6) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer6"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer6}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer6: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
+              Goals and Expectations
+            </Text>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question7"
+                control={control}
+                defaultValue={formData?.question7}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.answer7) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer7"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer7}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer7: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question8"
+                control={control}
+                defaultValue={formData?.question8}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.question8) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer8"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer8}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer8: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question9"
+                control={control}
+                defaultValue={formData?.question9}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.question9) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer9"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer9}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer9: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <Text py={2} fontSize="2xl" fontWeight="medium" color="brand.500">
+              Additional Information
+            </Text>
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question10"
+                control={control}
+                defaultValue={formData?.question10}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.answer10) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer10"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer10}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer10: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <Text
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb="5"
+            >
+              <Controller
+                name="question11"
+                control={control}
+                defaultValue={formData?.question11}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    readOnly
+                    style={{
+                      width: "100%",
+                      border: "none",
+                      outline: "none",
+                      padding: "0",
+                      backgroundColor: "transparent",
+                    }}
+                  />
+                )}
+              />
+            </Text>
+            <FormControl
+              as={Flex}
+              direction={{ base: "column", md: "row" }}
+              align="center"
+              mt="5"
+              mb={"5"}
+              style={{ height: calculateHeight(formData?.question11) }}
+            >
+              <FormLabel
+                fontSize="sm"
+                mb={0}
+                width={{ base: "auto", md: "200px" }}
+              >
+                {" "}
+                Answer
+              </FormLabel>
+              <Controller
+                name="answer11"
+                control={control}
+                render={({ field }) => (
+                  <Input
+                    {...field}
+                    maxW={"md"}
+                    size="sm"
+                    border={"1px"}
+                    borderColor="gray.300"
+                    variant="outline"
+                    _focus={{ borderColor: "brand.500" }}
+                    value={formData?.answer11}
+                    onChange={(e) => {
+                      setFormData({ ...formData, answer11: e.target.value });
+                    }}
+                  />
+                )}
+              />
+            </FormControl>
+
+            <FormControl as={Flex} align="center" mb={4}>
+              <Controller
+                name=""
+                control={control}
+                defaultValue={false}
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    size="sm"
+                    onChange={() => setIsAgree(!isAgree)}
+                  >
+                    By submitting this form, you agree to our Privacy Policy and
+                    consent to being contacted by our team regarding your inquiry.
+                  </Checkbox>
+                )}
+              />
+            </FormControl>
+
+            <Container maxW={"lg"} p="0">
+              <Button type="submit" colorScheme={"brand"} isDisabled={isAgree}>
+                Send
+              </Button>
+            </Container>
+          </form>
+        </Box>
       </Container>
       <ScrollToTop />
       {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 }

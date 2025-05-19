@@ -152,7 +152,6 @@ export default function UpdateProfileForm() {
   };
   const pageUrl = "/profile/edit";
 
-
   return (
     <>
       <MetaTags pageUrl={pageUrl} />

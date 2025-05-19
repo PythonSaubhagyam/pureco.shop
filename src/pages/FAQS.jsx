@@ -4,12 +4,18 @@ import Accordion from "../components/Accordion";
 import { Container, Box, Text, Image } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
+
 import { useLocation } from "react-router-dom";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
+
+
 export default function FAQS() {
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
+  useScrollRestoration();
+
 
   const generalInformationData = [
     {
@@ -198,11 +204,13 @@ export default function FAQS() {
       <MetaTags pageUrl={pageUrl} />
 
       {IsMobileView !== "true" && <Navbar />}
+
+
       <Container maxW="container.xl">
         <BreadCrumbCom second={"FAQ"} secondUrl={"/faq"} />
       </Container>
       <Container maxW={"container.xl"} py={1} px={0} position="relative">
-        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/faqs.jpg" />
+        <Image loading="lazy" alt="faq image" src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/faqs.jpg" />
 
         <Text
           pb={2}
@@ -220,7 +228,7 @@ export default function FAQS() {
           FAQ
         </Text>
       </Container>
-      <Container maxW={"container.xl"} pb={8} px={10}>
+      <Container maxW={"container.xl"} pb={8} px={10} >
         <Box
           className="separator"
           w={{ base: "100%", lg: "90%" }}
@@ -283,7 +291,9 @@ export default function FAQS() {
         <Accordion details={businessInquiryInformation} />
       </Container>
       <ScrollToTop />
+
       {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 }

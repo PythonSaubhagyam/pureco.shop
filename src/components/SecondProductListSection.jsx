@@ -200,7 +200,12 @@ const SecondProductListSection = ({ title, products, loading, type }) => {
                 </Box>
               ))
               : products?.map((product) => (
-                <Box key={product.id} px={{ base: "60px", md: "20px" }} >
+                <Box transition="all 0.25s cubic-bezier(.17,.67,.83,.67)" // Smooth transition
+                  _hover={{
+                    boxShadow: "lg",
+                    transform: "translateY(-6px) scale(1.04)", // Slight lift and scale
+                    borderColor: "brand.400",
+                  }} key={product.id} px={{ base: "60px", md: "20px" }} >
                   <SecondProductCard key={product.id} product={product} />
                 </Box>
               ))}
@@ -245,7 +250,7 @@ const SecondProductListSection = ({ title, products, loading, type }) => {
             ) : (
               <>
                 {products?.map((product) => (
-                  <GridItem my={4} px={{ base: "60px", md: "20px" }}>
+                  <GridItem  key={product.id} my={4} px={{ base: "60px", md: "20px" }}>
                     <SecondProductCard key={product.id} product={product} />
                   </GridItem>
                 ))}

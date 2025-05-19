@@ -31,6 +31,7 @@ import {
 } from "react-router-dom";
 import Actions from "../components/Actions";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function Checkout({ getDetails }) {
   function onEditClick(id, address) {
@@ -86,6 +87,7 @@ export default function Checkout({ getDetails }) {
   const visibleAddresses = showAll ? addresses?.length : SHOW_BY_DEFAULT;
 
   const [Txt_new_id, setTxt_new_id] = useState("");
+  useScrollRestoration();
 
   useEffect(() => {
     getAddresses(); // eslint-disable-next-line

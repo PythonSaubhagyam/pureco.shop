@@ -6,17 +6,22 @@ import { Box, Container, VStack, Image, Text, Heading } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import ScrollToTop from "../components/ScrollToTop";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
+
 const PrivacyPolicy = () => {
+
   let { search } = useLocation();
   const searchParams = new URLSearchParams(search);
   const IsMobileView = searchParams.get("mobile") ?? "false";
-  const pageUrl = "/privacy-policy";
+  useScrollRestoration();
 
+  const pageUrl = "/privacy-policy";
   return (
     <>
       <MetaTags pageUrl={pageUrl} />
 
       {IsMobileView !== "true" && <Navbar />}
+
       <Container maxW={"container.xl"} alignContent={"flex-start"}>
         <BreadCrumbCom
           second={"Privacy Policy"}
@@ -24,7 +29,7 @@ const PrivacyPolicy = () => {
         />{" "}
       </Container>
       <Container maxW={"container.xl"} mb={4} px={0} centerContent>
-        <Image src={"/Pureco/Privacy-policy/Privacy_Policy.jpg"} width="100%" />
+        <Image loading="lazy" src="https://s3organicbucket.s3.amazonaws.com/master/Products/images/Privacy_Policy.jpg" alt="Privacy Policy" />
         <VStack maxW={"6xl"} my={8} px={6}>
           <Box color={"text.300"} textAlign={"justify"}>
             We at Suryan Organic are committed to protecting and safe guarding
@@ -32,7 +37,7 @@ const PrivacyPolicy = () => {
             <br />
             <br />
             This Privacy Policy describes the types of personal information we
-            collect on the Suryan Organic website (<b>www.pureco.shop</b>) further
+            collect on the Suryan Organic website (<b>www.cofeeco.in</b>) further
             referenced as girgauveda.com, how we may use that information and
             with whom we may share it. Our Privacy Policy also describes the
             measures we take to protect the security of this information as well
@@ -40,9 +45,9 @@ const PrivacyPolicy = () => {
             any time. It also explains how you can object to the processing of
             your personal information or to receiving communications about our
             products and services. This Privacy Policy governs only information
-            provided to www.pureco.shop. It does not govern any other
-            information or communications that may have been collected in any
-            other manner like promotions, personal contact programmer etc.
+            provided to www.cofeeco.in. It does not govern any other information
+            or communications that may have been collected in any other manner
+            like promotions, personal contact programmer etc.
             <br />
             <br />
             By accepting the Privacy Policy, you expressly consent to our use
@@ -54,7 +59,7 @@ const PrivacyPolicy = () => {
               Information We Collect:-
             </Text>
             <br />
-            In general, you can visit the <b>www.pureco.shop</b> without telling us who
+            In general, you can visit the <b>www.cofeeco.in</b> without telling us who
             you are or revealing any personally identifiable information. You
             can however, also register at our website which enables us to
             contact you by email or text messages on your mobile phone to inform
@@ -302,38 +307,10 @@ const PrivacyPolicy = () => {
           <br />
         </VStack>
       </Container>
-      <Box
-        w="100%"
-        backgroundSize="100%"
-        backgroundPosition="50% 100%"
-        backgroundRepeat={"no-repeat"}
-      >
-        <Heading
-          color="brand.500"
-          size="lg"
-          mx="auto"
-          align={"center"}
-          my={"5"}
-          pb={"10px"}
-        >
-          AVAILABLE AT
-        </Heading>
-      </Box>
-      <Container maxW={"container.xl"} mb={5} px={20} centerContent>
-        <Image
-          src={
-            "/001.jpg"
-          }
-          w={"container.xl"}
-          alt=""
-          style={{
-            opacity: 1,
-            transition: "opacity 0.7s", // Note the corrected syntax here
-          }}
-        />
-      </Container>
       <ScrollToTop />
+
       {IsMobileView !== "true" && <Footer />}
+
     </>
   );
 };

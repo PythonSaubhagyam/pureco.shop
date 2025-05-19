@@ -1,11 +1,11 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ReadMorePost from "../components/ReadMorePost";
-import { Box, Container, Text, Image } from "@chakra-ui/react";
+import { Box, Container, Text, Image, Flex } from "@chakra-ui/react";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
-import { useLocation } from "react-router-dom";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 const Posts = [
   {
     image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/inspire-and-support/bansi gir gaushala.jpg",
@@ -29,6 +29,13 @@ const Posts = [
     href: "https://www.sidhakisanse.in/",
   },
   {
+    image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/inspire-and-support/sose.jpg",
+    title: "SOSE",
+    content:
+      "We are an Ethical & Natural foods, natural home care and handmade personal care brand from the house of Suryan Organic. We were born out of the need to start at the beginning, to go to the roots of our problems. As an enterprise that is inspired by the mission of Bansi Gir Gaushala, our aim is to contribute to the revival of “Gau Sanskriti”, an ancient culture which placed the Gaumata (Cow as the Divine Mother) at the center of all economic, cultural and social activity. Agriculture is the foundation of such a culture, and it is with this paradigm that we seek to find solutions to the problems facing Bharat and humanity at large.",
+    href: "https://www.sose.in/",
+  },
+  {
     image: "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/inspire-and-support/gotirth.jpg",
     title: "GoTirth Vidyapeeth",
     content:
@@ -36,32 +43,30 @@ const Posts = [
     href: "https://www.gotirthvidyapeeth.in/",
   },
 ];
-
 export default function InspireSupport() {
-  let { search } = useLocation();
-  const searchParams = new URLSearchParams(search);
-  const IsMobileView = searchParams.get("mobile") ?? "false";
   const pageUrl = "/inspire-and-support";
+  useScrollRestoration();
 
   return (
     <>
       <MetaTags pageUrl={pageUrl} />
-
-      {IsMobileView !== "true" && <Navbar />}
-
+      <Navbar />
       <Container maxW="container.xl">
         <BreadCrumbCom
           second={"Inspire & Support"}
-          secondUrl={"/inspire-and-support"}
-        />{" "}
+          secondUrl={pageUrl}
+        />
       </Container>
-      <Container maxW={"container.xl"} py={1} px={0} position="relative" centerContent>
-        <Image src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/inspire and support.jpg" width="100%" />
-
+      {/* Banner Section */}
+      <Container maxW="container.xl" py={1} px={0} position="relative" centerContent>
+        <Image
+          src="https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/inspire and support.jpg"
+          width="100%"
+          alt="Inspire & Support Banner"
+        />
         <Text
-          pb={2}
-          color={"brand.100"}
-          textAlign={"center"}
+          color="brand.100"
+          textAlign="center"
           fontSize={{ lg: "7xl", md: "4xl", base: "xl" }}
           fontWeight="600"
           position="absolute"
@@ -69,18 +74,23 @@ export default function InspireSupport() {
           left="50%"
           transform="translate(-50%, -50%)"
           zIndex="1"
-        // Optional: Add background to improve text readability
         >
           Inspire & Support
         </Text>
       </Container>
-      <Container maxW={"6xl"} py={4} >
-        {Posts.map((postDetails) => (
-          <ReadMorePost color={"text.600"} postAlign="horizontal" postDetails={postDetails} />
+      {/* Zigzag Posts */}
+      <Container maxW="6xl" py={8}>
+        {Posts.map((postDetails, index) => (
+          <Box key={index} my={10}>
+            <ReadMorePost
+              postDetails={postDetails}
+              postAlign={index % 2 === 0 ? "row" : "row-reverse"}
+            />
+          </Box>
         ))}
       </Container>
       <ScrollToTop />
-      {IsMobileView !== "true" && <Footer />}
+      <Footer />
     </>
   );
 }

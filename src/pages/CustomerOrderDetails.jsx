@@ -37,6 +37,7 @@ import {
 } from "@chakra-ui/react";
 import ReactStars from "react-stars";
 import { BsCheck, BsPrinter, BsDownload } from "react-icons/bs";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function CustomerOrderDetails() {
   const [orderDetails, setOrderDetails] = useState([]);
@@ -65,6 +66,7 @@ export default function CustomerOrderDetails() {
 
     setOrderDetails(response.data.data);
   }
+  useScrollRestoration()
 
   async function postReview() {
     try {
@@ -135,10 +137,9 @@ export default function CustomerOrderDetails() {
       });
   };
 
-
   async function handleOnlinePayment() {
     setPayment(true); // Set the payment loading state
-    
+
     const data = {
       order_id: orderDetails.order_id,
       txnid: new Date().getTime().toString(), // Generate a unique transaction ID
@@ -213,7 +214,7 @@ export default function CustomerOrderDetails() {
         >
           <Heading fontWeight={500}>{orderDetails?.order_id}</Heading>
           <Flex gap={2} align="center">
-          {
+            {
               orderDetails.order_status !== "Cancelled" &&
               orderDetails?.is_paid === false &&
               orderDetails.order_status !== "Delivered" &&
@@ -227,7 +228,7 @@ export default function CustomerOrderDetails() {
             {orderDetails.order_status !== "Pending" &&
               orderDetails.is_invoiced && (
                 <>
-                <Button
+                  <Button
                     size="sm"
                     colorScheme={"brand"}
                     isLoading={isPayment}
@@ -268,7 +269,7 @@ export default function CustomerOrderDetails() {
             gap={{ base: 6, md: 20 }}
           >
             {JSON.stringify(orderDetails.billing_address) ===
-            JSON.stringify(orderDetails.shipping_address) ? (
+              JSON.stringify(orderDetails.shipping_address) ? (
               <Box fontSize="sm">
                 <Heading size="sm">Invoicing and Shipping Address</Heading>
                 <Box w="100%" mt={2}>
@@ -277,7 +278,7 @@ export default function CustomerOrderDetails() {
                   </Text>
                   <Text>
                     {orderDetails ??
-                    orderDetails?.billing_address?.mobile_no === "None"
+                      orderDetails?.billing_address?.mobile_no === "None"
                       ? null
                       : "Phone : " + orderDetails?.billing_address?.mobile_no}
                   </Text>
@@ -311,7 +312,7 @@ export default function CustomerOrderDetails() {
                     </Text>
                     <Text>
                       {orderDetails ??
-                      orderDetails?.billing_address?.mobile_no === "None"
+                        orderDetails?.billing_address?.mobile_no === "None"
                         ? null
                         : "Phone : " + orderDetails?.billing_address?.mobile_no}
                     </Text>
@@ -343,10 +344,10 @@ export default function CustomerOrderDetails() {
                     </Text>
                     <Text>
                       {orderDetails ??
-                      orderDetails?.shipping_address?.mobile_no === "None"
+                        orderDetails?.shipping_address?.mobile_no === "None"
                         ? null
                         : "Phone : " +
-                          orderDetails?.shipping_address?.mobile_no}
+                        orderDetails?.shipping_address?.mobile_no}
                     </Text>
                     <Text mt={1} w="20vw">
                       {orderDetails?.shipping_address?.full_address}
@@ -453,11 +454,11 @@ export default function CustomerOrderDetails() {
                       orderDetails.tax_amt -
                       orderDetails.shipping_amt +
                       orderDetails.discount_amt >
-                    0
+                      0
                       ? orderDetails.final_total -
-                        orderDetails.tax_amt -
-                        orderDetails.shipping_amt +
-                        orderDetails.discount_amt
+                      orderDetails.tax_amt -
+                      orderDetails.shipping_amt +
+                      orderDetails.discount_amt
                       : 0
                     ).toFixed(2)}
                   </Td>

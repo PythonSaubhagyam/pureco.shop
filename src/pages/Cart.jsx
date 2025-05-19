@@ -41,6 +41,7 @@ import checkLogin from "../utils/checkLogin";
 import BreadCrumbCom from "../components/BreadCrumbCom";
 import LoginModal from "../components/LoginModal";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function Cart() {
   const messageRef = useRef(null);
@@ -53,7 +54,6 @@ export default function Cart() {
   const [grandTotal, setGrandTotal] = useState(0.0);
   const [isGift, setIsGift] = useState(false);
   const [cartRemoveLoading, setCartRemoveLoading] = useState();
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   // const [useGiftWrap, setUseGiftWrap] = useState(false);
   const [giftMessage, setGiftMessage] = useState("");
   const [giftMaterials, setGiftMaterials] = useState([]);
@@ -64,6 +64,8 @@ export default function Cart() {
   const navigate = useNavigate();
   const toast = useToast();
   const [isMobile] = useMediaQuery("(max-width: 768px)");
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  useScrollRestoration();
 
   const loginInfo = checkLogin();
 
@@ -99,6 +101,7 @@ export default function Cart() {
     }
     setLoading(false);
   }
+
 
   useEffect(() => {
     const loginInfo = checkLogin();
@@ -277,7 +280,7 @@ export default function Cart() {
         });
       }
     } else {
-      setIsLoginModalOpen(true)
+      setIsLoginModalOpen(true);
       toast({
         title: "Please login to place an order!",
         status: "info",
@@ -335,13 +338,10 @@ export default function Cart() {
     // }, 2000);
     // return () => clearTimeout(timer);
   }
-  const pageUrl = "/cart";
 
   const AmountTable = () => {
     return (
       <>
-        <MetaTags pageUrl={pageUrl} />
-
         {cartItems.length > 0 ? (
           <Box
             w={{ md: "25%", base: "320px" }}
@@ -483,9 +483,12 @@ export default function Cart() {
       </>
     );
   };
+  const pageUrl = "/cart";
 
   return (
     <>
+      <MetaTags pageUrl={pageUrl} />
+
       <Navbar />
       <Container maxW="container.xl">
         <BreadCrumbCom second={"My Cart"} secondUrl={"/cart"} />
@@ -515,7 +518,9 @@ export default function Cart() {
                     src={
                       "https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/emptyCart.gif"
                     }
+                    alt="emptyCart"
                     boxSize="200px"
+                    loading="lazy"
                   />
                   Your cart is empty
                 </Box>
@@ -679,12 +684,7 @@ export default function Cart() {
           </>
         )}
       </Container>
-      {!checkLogin().isLoggedIn && (
-        <LoginModal
-          isOpen={isLoginModalOpen}
-          onClose={() => setIsLoginModalOpen(false)}
-        />
-      )}
+      {!checkLogin().isLoggedIn && <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />}
       <ScrollToTop />
       <Footer />
     </>

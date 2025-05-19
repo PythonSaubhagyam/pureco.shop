@@ -3,7 +3,6 @@ import Loader from "../components/Loader";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
-import CarouselWithLinks from "../components/CarouselWithLinks";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import ScrollToTop from "../components/ScrollToTop";
 import SecondProductListSection from "../components/SecondProductListSection"
@@ -31,11 +30,8 @@ import {
   Skeleton,
   Button,
 } from "@chakra-ui/react";
-import client from "../setup/axiosClient";
 import CheckOrSetUDID from "../utils/checkOrSetUDID";
 import { useNavigate, NavLink as RouterLink, Link as ReactRouterLink } from "react-router-dom";
-import { ChevronRightIcon } from "@chakra-ui/icons";
-import Testimonials from "../components/testimonials";
 import LoginModal from "../components/LoginModal";
 import checkLogin from "../utils/checkLogin";
 import { useDispatch, useSelector } from "react-redux"
@@ -47,6 +43,7 @@ import MetaHome from "../components/MetaHome";
 import CountUp from 'react-countup';
 import ScrollTrigger from 'react-scroll-trigger';
 import BlogSliderHome from "../components/BlogSliderHome";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 
 export default function Home() {
@@ -54,17 +51,14 @@ export default function Home() {
   const width = useBreakpointValue({ base: "100%", lg: "100%" });
   const height = useBreakpointValue({ base: "300", lg: "400" });
   const [isMobile] = useMediaQuery("(max-width: 480px)");
-  const [homeData, setHome] = useState({});
-  const [sections, setSections] = useState([]);
   const loginInfo = checkLogin();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const checkOrSetUDIDInfo = CheckOrSetUDID();
   const [showPopup, setShowPopup] = useState(
     sessionStorage.getItem("hasShownPopup")
   );
-  const isMobiles = width <= 768;
   const navigate = useNavigate();
   const [countUp, setCountUp] = useState(false)
+  useScrollRestoration();
 
 
   const dispatch = useDispatch();
@@ -112,28 +106,8 @@ export default function Home() {
   const pageUrl = "/";
   return (
     <>
-      <MetaHome pageUrl={pageUrl} />
-      {/* <Helmet>
-        <title>Pureco.shop - Home</title>
-        <meta
-          name="description"
-          content=""
-        />
-      </Helmet> */}
-      {/* {loading === true ? (
-        <Center h="100vh" w="100vw" backgroundColor={"bg.500"}>
-          <Loader site={true} />
-        </Center>
-      ) : (
-        <> */}
       <Navbar />
-      {/* <Container maxW={"container.xl"} px={0}>
-        {loader === true ? (
-          <Skeleton h={489}></Skeleton>
-        ) : (
-          <Carousel banners={puroco} />
-        )}
-      </Container> */}
+      <MetaHome pageUrl={pageUrl} />
 
       <Container maxW={"container.xl"} px={0}>
         {loader === true ? (
@@ -141,7 +115,6 @@ export default function Home() {
         ) : (
           <Carousel banners={upperBanners?.length > 0 && upperBanners} />
         )}
-        {/* <Image w={"100%"} h={489} src={require("../assets/Home/1.jpg")} /> */}
       </Container>
 
       {ourAboutSection?.length > 0 &&
@@ -191,16 +164,27 @@ export default function Home() {
 
       {ourCertificateSection?.length > 0 &&
         ourCertificateSection[0]?.is_visible_on_website === true && (
-          <Container mb={5} px={0} mt={12} maxW={"container.xl"} centerContent>
-            <LazyLoadImage
-              src={ourCertificateSection[0]?.image}
-              alt=""
-              style={{
-                opacity: 1,
-                transition: "opacity 0.7s", // Note the corrected syntax here
-                width: "100%"
-              }}
-            />
+          <Container px={0} maxW={"container.xl"} centerContent>
+            {ourCertificateSection[0]?.images?.length > 0 ? (
+              loader ? (
+                <Skeleton h={489} />
+              ) : (
+                <Carousel banners={ourCertificateSection[0].images} />
+              )
+            ) : (
+              ourCertificateSection[0]?.image && (
+                <LazyLoadImage
+                  loading="lazy"
+                  src={ourCertificateSection[0].image}
+                  alt="certificate"
+                  style={{
+                    opacity: 1,
+                    transition: "opacity 0.7s",
+                    width: "100%",
+                  }}
+                />
+              )
+            )}
           </Container>
         )}
       {ourBestSellerSection?.length > 0 &&
@@ -312,7 +296,7 @@ export default function Home() {
       {ourNonGmoSection?.length > 0 &&
         ourNonGmoSection[0]?.is_visible_on_website === true && (
           <Container maxW={"5xl"} mt={5}>
-            <Image src={ourNonGmoSection[0]?.image} />
+            <Image src={ourNonGmoSection[0]?.image} alt="non gmo image" loading="lazy" />
           </Container>
         )}
       {servicesSection?.length > 0 &&
@@ -334,7 +318,8 @@ export default function Home() {
               <LazyLoadImage
                 src={servicesSection[0]?.images[0].image}
                 w={{ base: "100%", md: "100%" }}
-                alt=""
+                alt="service section"
+                loading="lazy"
                 py={4}
                 style={{
                   opacity: 1,
@@ -342,32 +327,6 @@ export default function Home() {
                 }}
               />
             </Box>
-          </Container>
-        )}
-      {availableSection?.length > 0 &&
-        availableSection[0]?.is_visible_on_website === true && (
-          <Container maxW={"container.xl"} mb={5} px={0} centerContent>
-            <Heading
-              as={"h1"}
-              color="brand.500"
-              fontSize={{ md: 33, base: 22 }}
-              mx="auto"
-              align={"center"}
-              my={"5"}
-              pb={"10px"}
-            >
-              {availableSection[0].label}
-            </Heading>
-
-            <Image
-              src={availableSection[0]?.images?.length > 0 && availableSection[0]?.images[0].image}
-              w={"container.xl"}
-              alt=""
-              style={{
-                opacity: 1,
-                transition: "opacity 0.7s", // Note the corrected syntax here
-              }}
-            />
           </Container>
         )}
       {!checkLogin().isLoggedIn && (

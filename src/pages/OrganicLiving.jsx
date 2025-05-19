@@ -15,11 +15,10 @@ import BreadCrumbCom from "../components/BreadCrumbCom";
 import ScrollToTop from "../components/ScrollToTop";
 import { useLocation } from "react-router-dom";
 import MetaTags from "../context/MetaTagsContext";
+import useScrollRestoration from "../utils/useScrollRestoration";
 
 export default function OrganicLiving() {
-    let { search } = useLocation();
-    const searchParams = new URLSearchParams(search);
-    const IsMobileView = searchParams.get("mobile") ?? "false";
+    useScrollRestoration();
 
     const banners = [
         {
@@ -47,6 +46,9 @@ export default function OrganicLiving() {
             alt_text: "Banner 5",
         },
     ];
+    let { search } = useLocation();
+    const searchParams = new URLSearchParams(search);
+    const IsMobileView = searchParams.get("mobile") ?? "false";
 
     const width = useBreakpointValue({ base: "100%", lg: "1200" });
     const height = useBreakpointValue({ base: "300", lg: "600" });
@@ -74,7 +76,9 @@ export default function OrganicLiving() {
                 {/* </Container> */}
                 <Container maxW={"6xl"} pb={10}>
                     <Image
-                        // maxW={"6xl"}
+                        //maxW={"6xl"}
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/location & sq yards.jpg"}
                     ></Image>
                     <Heading
@@ -132,6 +136,8 @@ export default function OrganicLiving() {
                         A natural & divine living experience
                     </Heading>
                     <Image
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/five point BPU image.jpg"}
                         w="6xl"
                         mx={"auto"}
@@ -250,6 +256,8 @@ export default function OrganicLiving() {
                 </Container>
                 <Container maxW={"6xl"} py={8}>
                     <Image
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/gaushala.jpg"}
                     ></Image>
                     <Flex
@@ -258,6 +266,8 @@ export default function OrganicLiving() {
                         gap={{ base: 4, lg: 8 }}
                     >
                         <Image
+                            alt="Organic Living"
+                            loading="lazy"
                             src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/krishna.jpg"}
                             w={{ base: "100%", lg: "650px" }}
                         />
@@ -295,6 +305,8 @@ export default function OrganicLiving() {
                         </Box>
                     </Flex>
                     <Image
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/nature.jpg"}
                     ></Image>
                 </Container>
@@ -357,6 +369,8 @@ export default function OrganicLiving() {
                         Lakeside Forest Living
                     </Heading>
                     <Image
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/lakeside forest living.jpg"}
                     ></Image>
                     <Box align="center" maxW={"6xl"} mx={"auto"}>
@@ -413,10 +427,14 @@ export default function OrganicLiving() {
                         Bansi Prerna Upvan - Aerial View
                     </Heading>
                     <Image
+                        alt="Organic Living"
+                        loading="lazy"
                         src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/aerial view.jpg"}
                     ></Image>
                     <Link href="https://www.suryan.in/bansi-upvan">
                         <Image
+                            alt="Organic Living"
+                            loading="lazy"
                             src={"https://forntend-bucket.s3.ap-south-1.amazonaws.com/sose/images/organic-living/button more information.jpg"}
                             mx="auto"
                             w="550px"
